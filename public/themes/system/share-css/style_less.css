@@ -24,3 +24,11 @@
 #body-employment label input {
   margin-top: 0;
 }
+#home_register {
+  min-height: 20em;
+}
+#home_register .btn.btn-inverse {
+  height: 4em;
+  margin-top: 2em;
+  padding-top: 1em;
+}

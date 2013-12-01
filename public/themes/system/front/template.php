@@ -62,7 +62,7 @@
 
             jQuery(document).ready(function($) 
             {
-                $('a,span,p,.bar').tooltip();
+                $('a,span,p,.bar,input').tooltip();
             });
 
         </script>
@@ -136,16 +136,16 @@
                         <p style="margin-bottom: 12px;" >
                             <span class="icon-circle-arrow-right"></span>
                             <span class='set_name' >&nbsp;USER : </span>
-                            <input type="text" class="span2 login">
+                            <input data-placement="right" title='Please enter username' placeholder='username' type="text" class="span2 login">
                         </p>
                         <p style="margin-bottom: 12px;" >
                             <span class="icon-circle-arrow-right"></span>
                             <span class='set_name' >&nbsp;PASS : </span>
-                            <input type="password" class="span2 login">
+                            <input data-placement="right" title='Please enter password' placeholder='password' type="password" class="span2 login">
                         </p>
                         <p style="margin-bottom: 4px;" >
                             <span class="icon-circle-arrow-right"></span>
-                            &nbsp;<a href="">Forget Password </a> , <a href="<?php echo site_url( 'index/register' ) ?>">Register</a>
+                            &nbsp;<a href="<?php echo site_url( 'index/forget_password' ) ?>">Forget Password </a> , <a href="<?php echo site_url( 'index/register' ) ?>">Register</a>
                         </p>
                     </section>
                     <hr>

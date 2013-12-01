@@ -1,4 +1,4 @@
-<h3>Register Freelance</h3>
+<h3>Register Principal</h3>
 <blockquote>
 
 <?php $attributes = array('class' => 'set_table', 'id' => 'set_table'); ?>
@@ -22,6 +22,13 @@
 
 	<div class="box_input">
 		<div class="name_input">
+			Company Name
+		</div> 
+		<input type="text" class="span3">
+	</div>
+
+	<div class="box_input">
+		<div class="name_input">
 			Name
 		</div> 
 		<input type="text" class="span3"> 
@@ -33,6 +40,7 @@
 		</div> 
 		<input type="text" class="span3">
 	</div>
+
 
 	<div class="box_input">
 		<div class="name_input">
@@ -55,6 +63,12 @@
 	<div class="box_input">
 		<div class="name_input">
 			Phone
+		</div> 
+		<input type="text" class="span3">
+	</div>
+	<div class="box_input">
+		<div class="name_input">
+			Fax
 		</div> 
 		<input type="text" class="span3">
 	</div>
@@ -85,28 +99,6 @@
 			Confirm Password
 		</div> 
 		<input type="text" class="span3">
-	</div>
-
-	<div class="box_input">
-		<div class="name_input">
-			Type Job
-		</div> 
-		<div style="display: inline-block;">
-			<?php foreach ( $job as $key => $value ): ?>
-				
-				<label>
-					<input type="checkbox" value="" name="" > <?php echo $value->name_job ?>
-				</label>
-
-			<?php endforeach ?>
-		</div>
-	</div>
-
-	<div class="box_input">
-		<div class="name_input">
-			Other Skill
-		</div> 	
-		<textarea rows="5" name="" class="span6" style="margin-bottom: 0;"></textarea>
 	</div>
 
 	<div class="box_input">

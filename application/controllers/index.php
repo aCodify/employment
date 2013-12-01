@@ -107,10 +107,17 @@ class index extends MY_Controller
 	}// index
 	
 
-	public function register( $value = '' )
+	public function register( $info_page = 'home' )
 	{
 		// SET VALUE 
 		$output = '';
+
+		if ( $info_page == 'home' ) 
+		{
+			$this->generate_page('front/templates/account/call_home_register_view', $output);
+			return false;
+		}
+
 
 		/**
 		*
@@ -123,11 +130,13 @@ class index extends MY_Controller
 				echo '<pre>';
 				print_r( $_POST );
 				echo '</pre>';
+
+				die();
 			}
 
 		/** END IF SYSTEM HAS METHORD $_POST **/
 
-
+		// -------------------------------------
 
 		/**
 		*
@@ -141,6 +150,7 @@ class index extends MY_Controller
 		
 		/** END GET PROVINCE **/
 
+		// -------------------------------------
 
 		/**
 		*
@@ -152,9 +162,22 @@ class index extends MY_Controller
 		$output['job'] = $query->result();
 		
 		
-		/** END GET JOB **/		
+		/** END GET JOB **/	
 
-		$this->generate_page('front/templates/account/call_register_view', $output);
+		// -------------------------------------	
+
+
+		if ( $info_page == 'freelance' ) 
+		{
+			$this->generate_page('front/templates/account/call_register_view', $output);
+			return false;
+		}
+		elseif ( $info_page == 'principal' ) 
+		{
+			$this->generate_page('front/templates/account/call_register_principal_view', $output);
+			return false;
+		}
+
 	}
 
 
@@ -204,6 +227,14 @@ class index extends MY_Controller
 			}  
 
 	}	
+
+	public function forget_password()
+	{
+		// SET VALUE 
+		$output = '';
+		
+		$this->generate_page('front/templates/account/call_forget_password_view', $output);
+	}
 
 	
 }

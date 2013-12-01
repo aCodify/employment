@@ -1,0 +1,26 @@
+#body-employment input.span2,
+#body-employment input.span3,
+#body-employment input.span4,
+#body-employment input.span5,
+#body-employment input.span6 {
+  font-size: 12px;
+  height: 29px;
+  margin: 0px;
+}
+#body-employment input.login {
+  height: 2em;
+}
+#body-employment .set_name {
+  display: inline-block;
+  width: 4em;
+}
+#body-employment .box_input {
+  padding-bottom: 1em;
+}
+#body-employment .name_input {
+  float: left;
+  width: 9em;
+}
+#body-employment label input {
+  margin-top: 0;
+}

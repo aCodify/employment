@@ -32,3 +32,43 @@
   margin-top: 2em;
   padding-top: 1em;
 }
+#freelance .table-bordered tbody tr td {
+  padding: 10px;
+}
+#freelance .table-bordered .set_table_freelance tr td {
+  border-left: 0px solid #DDDDDD;
+}
+#freelance .table-bordered .set_table_freelance tr td.set1 {
+  width: 14em;
+}
+#freelance .table-bordered .set_table_freelance tr td.set2 {
+  width: 11em;
+}
+#freelance tbody div.scrollit {
+  overflow: scroll;
+  height: 20em;
+}
+#freelance .dataTables_length {
+  display: none;
+}
+#freelance .dataTables_filter input {
+  height: 2em;
+  margin: 0;
+}
+#freelance .dataTables_info {
+  display: none;
+  width: 20em;
+}
+#freelance .dataTables_paginate {
+  display: inline-table;
+  width: 7em;
+}
+#freelance .dataTables_paginate a {
+  padding-left: 1em;
+}
+#freelance .paginate_active {
+  color: #FF0D0D;
+}
+#freelance .dataTables_wrapper a {
+  cursor: pointer;
+}

@@ -232,8 +232,25 @@ class index extends MY_Controller
 	{
 		// SET VALUE 
 		$output = '';
-		
+
 		$this->generate_page('front/templates/account/call_forget_password_view', $output);
+	}
+
+
+	public function freelance()
+	{
+		// SET VALUE 
+		$output = '';
+
+		$this->generate_page('front/templates/job/freelance_view', $output);
+	}
+
+	public function principal()
+	{
+		// SET VALUE 
+		$output = '';
+
+		$this->generate_page('front/templates/job/principal_view', $output);
 	}
 
 	

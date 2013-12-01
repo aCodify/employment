@@ -42,6 +42,9 @@
 
         <script src="<?php echo $this->theme_path; ?>share-js/totop.js"></script>  
 
+
+        <script type="text/javascript" src="<?php echo $this->theme_path; ?>share-js/dataTable.js"></script>
+
         <script type = "text/javascript">
             $(document).ready(function(){
 
@@ -103,7 +106,7 @@
                         </div>
                         
                         <div class="content-inner">
-                            <h1><a title='Hello World' data-placement="right"  href="#">Welcome to world Job</a></h1>
+                            <h1><a title='Hello World' data-placement="right"  href="#">WELCOME TO WORLD JOB</a></h1>
                             <div class="post-content autumn">
                  
                                 <div class="markdown">
@@ -152,9 +155,9 @@
                     <section class="module snipts">
                         <h1><span class="icon-bookmark"></span> Menu</h1>
                         <ul>
-                            <li><a target="_blank" href="#">Home</a></li>
-                            <li><a target="_blank" href="#">Name Freelance</a></li>
-                            <li><a target="_blank" href="#">Work Project</a></li>
+                            <li><a href="<?php echo site_url() ?>">Home</a></li>
+                            <li><a href="<?php echo site_url( 'index/freelance' ) ?>">Name Freelance</a></li>
+                            <li><a href="<?php echo site_url( 'index/principal' ) ?>">Work Project</a></li>
                         </ul>
                     </section>
                 </aside>

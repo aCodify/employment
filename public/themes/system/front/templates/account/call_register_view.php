@@ -84,7 +84,7 @@
 		<div class="name_input">
 			Confirm Password
 		</div> 
-		<input type="text" class="span3">
+		<input type="password" class="span3">
 	</div>
 
 	<div class="box_input">

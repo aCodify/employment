@@ -253,5 +253,17 @@ class index extends MY_Controller
 		$this->generate_page('front/templates/job/principal_view', $output);
 	}
 
+	public function profile_freelance( $id = '' )
+	{
+	
+		// SET VALUE 
+		$output = '';
+
+		$output['id'] = $id;
+
+		$this->generate_page('front/templates/member/profile_freelance_view', $output);
+	
+	} // END FUNCTION profile_freelance
+
 	
 }

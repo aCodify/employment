@@ -1,12 +1,14 @@
-<h3>Update Project</h3>
+<h3>My Project list</h3>
 <blockquote id="freelance">
+
+	<a href="<?php echo site_url( 'index/member/add_project' ) ?>" style="float: right; margin-bottom: 1em;" class="btn" > New Project </a>
 	<table class="table table-striped table-hover table-bordered dataTable-project-home" >
 		<thead>
 			<tr>
 				<th>Project</th>
-				<th>Manager</th>
-				<th>Phone</th>
-				<th>Time line ( date )</th>
+				<th>Post Date</th>
+				<th>จำนวนผู้มาติดต่อ</th>
+
 			</tr>
 		</thead>
 		<tbody>
@@ -14,10 +16,9 @@
 			<?php for ( $i=0; $i < 15; $i++ ) 
 			{ ?>
 				<tr>
-					<td><a href="<?php echo site_url( 'index/profile_project/'.$i ) ?>">Project <?php echo $i ?></a></td>
-					<td><a href="<?php echo site_url( 'index/profile_project/'.$i ) ?>">Ms. Joney Loyas</a></td>
-					<td><a href="<?php echo site_url( 'index/profile_project/'.$i ) ?>">0888888888</a></td>
-					<td><a href="<?php echo site_url( 'index/profile_project/'.$i ) ?>">30 date</a></td>
+					<td><a href="<?php echo site_url( 'index/member/detail_project/'.$i ) ?>">Project <?php echo $i ?></a></td>
+					<td><a href="<?php echo site_url( 'index/member/detail_project/'.$i ) ?>"><?php echo date("d-M-Y"); ?></a></td>
+					<td><a href="<?php echo site_url( 'index/member/detail_project/'.$i ) ?>"><?php echo number_rand( 1 ) ?></a></td>
 				</tr>
 				
 			<? } ?>
@@ -41,7 +42,6 @@ var oTable_project = $('.dataTable-project-home').dataTable(
 		"aoColumns": [
 					        { "sWidth": "30%" },
 					        { "sWidth": "30%" },
-					        { "sWidth": "15%" },
 					        { "sWidth": "25%" }
 						],
 		"aaSorting": [[ 0, "asc" ]],

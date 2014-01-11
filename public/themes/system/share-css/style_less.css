@@ -81,3 +81,20 @@
 .set-header-profile {
   color: #00B2C2;
 }
+.page-add-project input[type="text"],
+.page-add-project input[type="password"],
+.page-add-project input[type="datetime"],
+.page-add-project input[type="datetime-local"],
+.page-add-project input[type="date"],
+.page-add-project input[type="month"],
+.page-add-project input[type="time"],
+.page-add-project input[type="week"],
+.page-add-project input[type="number"],
+.page-add-project input[type="email"],
+.page-add-project input[type="url"],
+.page-add-project input[type="search"],
+.page-add-project input[type="tel"],
+.page-add-project input[type="color"] {
+  height: 27px;
+  padding: 1px 1px 1px 4px;
+}

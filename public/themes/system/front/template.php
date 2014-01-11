@@ -122,10 +122,11 @@
                                     <br>
                                     <p class="rights_reserved">
                                         <a href="">HOME </a> |
-                                        <a href=""> NAME FREELANCE </a> |
-                                        <a href=""> WORK PROJECT </a> 
+                                        <a href=""> FREELANCE List </a> |
+                                        <a href=""> PROJECT List </a> 
                                         | © 2012-2013, All Rights Reserved.
                                     </p>
+
 
                                 </div>
                                 <div id="disqus_thread"></div>
@@ -156,8 +157,12 @@
                         <h1><span class="icon-bookmark"></span> Menu</h1>
                         <ul>
                             <li><a href="<?php echo site_url() ?>">Home</a></li>
-                            <li><a href="<?php echo site_url( 'index/freelance' ) ?>">Name Freelance</a></li>
-                            <li><a href="<?php echo site_url( 'index/principal' ) ?>">Work Project</a></li>
+                            <li><a href="<?php echo site_url( 'index/freelance' ) ?>">Freelance List</a></li>
+                            <li><a href="<?php echo site_url( 'index/principal' ) ?>">Project List</a></li>
+                        </ul>
+                        <h1><span class="icon-bookmark"></span> เมนูสำหรับ ผู้จ้างงาน ( แสดงก็ต่อเมื่อ login แบบผู้จ้างงาน )</h1>
+                        <ul>
+                            <li><a href="<?php echo site_url( 'index/member/view_project' ) ?>">View Project For member ผู้จ้างงาน</a></li>
                         </ul>
                     </section>
                 </aside>

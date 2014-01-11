@@ -14,10 +14,10 @@
 			<?php for ( $i=1; $i < 15; $i++ ) 
 			{ ?>
 				<tr>
-					<td>Project <?php echo $i ?> </td>
-					<td>Ms. Joney Loyas</td>
-					<td>0888888888</td>
-					<td>30 date</td>
+					<td><a href="<?php echo site_url( 'index/profile_project/'.$i ) ?>">Project <?php echo $i ?></a></td>
+					<td><a href="<?php echo site_url( 'index/profile_project/'.$i ) ?>">Ms. Joney Loyas</a></td>
+					<td><a href="<?php echo site_url( 'index/profile_project/'.$i ) ?>">0888888888</a></td>
+					<td><a href="<?php echo site_url( 'index/profile_project/'.$i ) ?>">30 date</a></td>
 				</tr>
 				
 			<? } ?>

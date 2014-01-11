@@ -24,7 +24,8 @@ class index extends MY_Controller
 		$this->posts_model->post_type = 'article';
 		
 		// load helper
-		$this->load->helper(array('date', 'language'));
+		$this->load->helper(array('date', 'language' , 'function'));
+
 		
 		// load language
 		$this->lang->load('post');
@@ -265,5 +266,47 @@ class index extends MY_Controller
 	
 	} // END FUNCTION profile_freelance
 
+
+
+	public function profile_project( $id = '' )
+	{
+	
+		// SET VALUE 
+		$output = '';
+
+		$output['id'] = $id;
+
+		$this->generate_page('front/templates/member/profile_project_view', $output);
+	
+	} // END FUNCTION profile_project
+
+
+	public function member( $type = '' )
+	{
+	
+		// SET VALUE 
+		$output = '';
+
+
+		if ( $type == 'add_project' ) 
+		{
+			$this->generate_page('front/templates/member/profile_project_add_view', $output);
+			return true;
+		}
+		else if ( $type == 'view_project' )
+		{
+			$this->generate_page('front/templates/member/profile_project_list_view', $output);
+			return true;
+		}
+		else if ( $type == 'detail_project' ) 
+		{
+			$this->generate_page('front/templates/member/profile_project_detail_view', $output);
+			return true;
+		}
+
+		die();
+
+	
+	} // END FUNCTION member
 	
 }

@@ -20,7 +20,7 @@
 					<td><a href="<?php echo site_url( 'index/profile_project/'.$i ) ?>">30 date</a></td>
 				</tr>
 				
-			<? } ?>
+			<?php } ?>
 
 		</tbody>
 	</table>
@@ -52,7 +52,7 @@
 					<td><a href="<?php echo site_url( 'index/profile_freelance/'.$i ) ?>">0888888888</a></td>
 				</tr>
 				
-			<? } ?>
+			<?php } ?>
 
 		</tbody>
 	</table>

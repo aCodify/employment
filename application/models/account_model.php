@@ -1647,6 +1647,15 @@ class account_model extends CI_Model
 	{
 		if (empty($data) || !is_array($data)) {return false;}
 		
+		unset( $data['account_confirm_password'] );
+		unset( $data['captcha'] );
+
+		if ( ! empty( $data['name_job'] ) ) 
+		{
+			$array_job = $data['name_job'];
+			unset( $data['name_job'] );
+		}
+
 		// check duplicate account (duplicate username)
 		$this->db->where('account_username', $data['account_username']);
 		$query = $this->db->select('account_username')->get('accounts');
@@ -1683,7 +1692,7 @@ class account_model extends CI_Model
 		$data['account_password'] = $this->encryptPassword($data['account_password']);
 		$data['account_create'] = date('Y-m-d H:i:s', time());
 		$data['account_create_gmt'] = date('Y-m-d H:i:s', local_to_gmt(time()));
-		$data['account_status'] = '0';
+		$data['account_status'] = '1';
 		if ($this->config_model->loadSingle('member_verification') == '2') {
 			$data['account_status_text'] = 'Waiting for admin verification.';
 		}
@@ -1693,7 +1702,18 @@ class account_model extends CI_Model
 		
 		// get account id
 		$account_id = $this->db->insert_id();
-		
+
+		if ( ! empty( $array_job ) ) 
+		{
+			foreach ( $array_job as $key => $value ) 
+			{
+				$this->db->set( 'id_account', $account_id );
+				$this->db->set( 'id_job', $value );
+				$this->db->insert( 'job_ref_account' );
+			}
+		}		
+
+
 		// add level
 		$this->load->model('siteman_model');
 		$list_site = $this->siteman_model->listWebsitesAll();
@@ -2062,6 +2082,17 @@ class account_model extends CI_Model
 		}
 	}// uploadAvatar
 	
+
+	public function get_account_data( $id = '' )
+	{
+	
+		$this->db->where( 'account_id', $id );
+		$query = $this->db->get( 'accounts' );
+		$data = $query->row();
+		return $data;
+	
+	} // END FUNCTION get_account_data
+
 
 }
 

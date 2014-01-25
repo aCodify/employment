@@ -1,77 +1,79 @@
-<h2 class="set-header-profile" >Profile Joney Loyas <?php echo $id = ( ! empty( $id ) ) ? $id : '' ; ?></h2>
+<h2 class="set-header-profile" >Profile <?php echo $show_data->name . ' ' .$show_data->last_name ?></h2>
 <blockquote class="profile-freelance">
 
 	<span>
-		<div class="account-avatar-wrap border-shop-img2"><img style="max-width: 10em;" src="http://fpoimg.com/150x150?text=Logo" alt="<?php echo lang( 'account_avatar' ); ?>" class="account-avatar account-avatar-edit cover-img-tmp" /></div>
+		<div class="account-avatar-wrap border-shop-img2"><img style="max-width: 10em;" src="<?php echo base_url( 'public/upload/img_cover/'.$show_data->account_avatar ) ?>" alt="<?php echo lang( 'account_avatar' ); ?>" class="account-avatar account-avatar-edit cover-img-tmp" /></div>
 	</span>	
-
 	<br>
 
 	<div class="box_input">
 		<div class="name_input">
-			Name
+			ชื่อ
 		</div> 
-		: Joney
+		: <?php echo $show_data->name ?>
 	</div>
 
 	<div class="box_input">
 		<div class="name_input">
-			Last Name
+			นามสกุล
 		</div> 
-		: Loyas
+		: <?php echo $show_data->last_name ?>
 	</div>
 
 	<div class="box_input">
 		<div class="name_input">
-			Address
+			ที่อยู่
 		</div> 	
-		:  38 Petkasem Road; Phasicharoen; Bangkae Bangkok 10160; Thailand 
+		:  <?php echo $show_data->address ?>
 	</div>
 
 	<div class="box_input">
 		<div class="name_input">
 			Province 	
 		</div>
-		: กรุงเทพ
+		<?php  
+
+		$this->db->where( 'id', $show_data->province );
+		$query = $this->db->get( 'province' );
+		$data_province = $query->row();
+
+
+		?>
+	
+
+		: <?php echo $data_province->name_province ?>
 	</div>
 
 	<div class="box_input">
 		<div class="name_input">
-			Phone
+			เบอร์โทร
 		</div> 
-		: 0888888888
+		: <?php echo $show_data->phone ?>
 	</div>
 
 	<div class="box_input">
 		<div class="name_input">
-			E-Mail
+			อีเมล์
 		</div> 
-		: i@me.com
+		: <?php echo $show_data->account_email ?>
 	</div>
 
 
 
 	<div class="box_input">
 		<div class="name_input">
-			Type Job
+			ความสามารถ
 		</div> 
 		<div style="display: inline-block;">
-			: Web Programmer
+			: <?php echo $job ?>
 		</div>
 	</div>
 
 	<div class="box_input">
 		<div class="name_input">
-			Other Skill
+			ความสามารถอื่นๆ
 		</div> 	
-		: php , javascript , mysql , Jquery
-	</div>
-
-	<div class="box_input">
-		<div class="name_input">
-			Other Detail
-		</div> 	
-		: -not-
+		: <?php echo $show_data->other_skill ?>
 	</div>
 
 

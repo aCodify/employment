@@ -27,6 +27,42 @@ class register extends MY_Controller
 	
 	public function index() 
 	{
+
+
+		if ( $this->input->get( 'type' ) OR $this->input->post() ) 
+		{
+			$type = (int)$this->input->get( 'type' );
+
+			if ( $this->input->post( 'type' ) ) 
+			{
+				$type = $this->input->post( 'type' );
+			}
+
+		}
+		else
+		{
+			redirect( site_url() );
+		}
+
+		$query = $this->db->get( 'job' );
+		$output['job'] = $query->result();
+
+		/**
+		*
+		*** START GET PROVINCE
+		*
+		**/
+		
+		$query = $this->db->get( 'province' );
+		$output['province'] = $query->result();
+		
+		
+		/** END GET PROVINCE **/
+
+
+		//--------------------------------------------------------
+
+
 		if ($this->config_model->loadSingle('member_allow_register') == '0') {redirect($this->base_url);}// check for allowed register?
 		
 		// set breadcrumb ----------------------------------------------------------------------------------------------------------------------
@@ -40,18 +76,28 @@ class register extends MY_Controller
 		$output['plugin_captcha'] = $this->modules_plug->do_filter('account_register_show_captcha');
 		
 		// save action (register action)
-		if ($this->input->post()) {
+		if ($this->input->post()) 
+		{
+			$data = $this->input->post();
+
 			$data['account_username'] = htmlspecialchars(trim($this->input->post('account_username')), ENT_QUOTES, config_item('charset'));
 			$data['account_email'] = strip_tags(trim($this->input->post('account_email', true)));
 			$data['account_password'] = trim($this->input->post('account_password'));
 			
+			$data['type'] = $type;
+
+
+			$output['show_data'] = $data;
+
 			// load form validation
 			$this->load->library('form_validation');
 			$this->form_validation->set_rules('account_username', 'lang:account_username', 'trim|required|xss_clean|min_length[1]|no_space_between_text');
 			$this->form_validation->set_rules('account_email', 'lang:account_email', 'trim|required|valid_email|xss_clean');
 			$this->form_validation->set_rules('account_password', 'lang:account_password', 'trim|required');
 			$this->form_validation->set_rules('account_confirm_password', 'lang:account_confirm_password', 'trim|required|matches[account_password]');
-			
+			$this->form_validation->set_rules('name', 'lang:Name', 'trim|required|xss_clean|min_length[1]|no_space_between_text');
+			$this->form_validation->set_rules('last_name', 'lang:Last Name', 'trim|required|xss_clean|min_length[1]|no_space_between_text');
+
 			if ($this->form_validation->run() == false) {
 				$output['form_status'] = 'error';
 				$output['form_status_message'] = '<ul>'.validation_errors('<li>', '</li>').'</ul>';

@@ -1,4 +1,4 @@
-<h2 class="set-header-profile" >Add Project <?php echo $id = ( ! empty( $id ) ) ? $id : '' ; ?></h2>
+<h2 class="set-header-profile" >Edit Project <?php echo $id = ( ! empty( $id ) ) ? $id : '' ; ?></h2>
 <blockquote class="profile-freelance page-add-project">
 
 	<?php echo form_open_multipart('', array('class' => 'form-horizontal')); ?> 
@@ -10,22 +10,22 @@
 				<div class="name_input">
 					Number Project 	
 				</div>
-				: <?php echo $number_rand = number_rand() ?>
-				<input type="hidden" name="project_code" value="<?php echo $number_rand ?>">
+				: <?php echo $show_data->project_code ?>
+				<input type="hidden" name="project_code" value="<?php echo $show_data->project_code ?>">
 			</div>
 
 			<div class="box_input">
 				<div class="name_input">
 					ชื่อโปรเจค
 				</div> 
-				<input class="span5" type="text" name="project_name">
+				<input class="span5" type="text" name="project_name" value="<?php echo $show_data->project_name ?>" >
 			</div>
 
 			<div class="box_input">
 				<div class="name_input">
 					เนื้อหาโปรเจค
 				</div> 	
-				<textarea class="span5" name="project_detail"></textarea>
+				<textarea class="span5" name="project_detail"><?php echo $show_data->project_detail ?></textarea>
 			</div>
 
 			<div class="box_input">
@@ -33,8 +33,13 @@
 					ความสามารถในการทำงาน 	
 				</div>
 				<span style="display: table; padding-left: 0em;">
+
+					
+	
+	
+
 					<?php foreach ( $job as $key => $value ): ?>
-						<input name="name_job[]" value="<?php echo $value->id ?>" type="checkbox">&nbsp; <?php echo $value->name_job ?> <br>
+						<input <?php echo $selected = ( in_array($value->id, $project_job) ) ? 'checked' : '' ; ?> name="name_job[]" value="<?php echo $value->id ?>" type="checkbox">&nbsp; <?php echo $value->name_job ?> <br>
 					<?php endforeach ?>
 				</span>
 			</div>
@@ -43,14 +48,30 @@
 				<div class="name_input">
 					ระยะเวลา
 				</div> 
-				<input class="span5" type="text" name="long_term">
+				<input class="span5" type="text" name="long_term" value="<?php echo $show_data->long_term ?>" >
 			</div>
 
 			<div class="box_input">
 				<div class="name_input">
 					ราคา
 				</div> 
-				<input class="span5" type="text" name="price">
+				<input class="span5" type="text" name="price" value="<?php echo $show_data->price ?>" >
+			</div>
+
+			<div class="box_input">
+				<div class="name_input">
+					สถานะ
+				</div> 
+
+				<span style="display: table; padding-left: 0em;" >
+					
+					<select name="status" >
+						<option value="1">เปิด</option>
+						<option value="0">ปิด</option>
+						<option value="2">มีผู้สนใจแล้ว</option>
+					</select>
+					
+				</span>
 			</div>
 
 			<div class="box_input">

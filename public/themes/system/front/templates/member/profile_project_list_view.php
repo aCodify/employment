@@ -1,27 +1,51 @@
 <h3>My Project list</h3>
 <blockquote id="freelance">
 
-	<a href="<?php echo site_url( 'index/member/add_project' ) ?>" style="float: right; margin-bottom: 1em;" class="btn" > New Project </a>
+	<a href="<?php echo site_url( 'index/project_add' ) ?>" style="margin-bottom: 1em;" class="btn" > New Project </a>
 	<table class="table table-striped table-hover table-bordered dataTable-project-home" >
 		<thead>
 			<tr>
 				<th>Project</th>
 				<th>Post Date</th>
 				<th>จำนวนผู้มาติดต่อ</th>
+				<th>สถานนะ</th>
 
 			</tr>
 		</thead>
 		<tbody>
+				<?php foreach ( $data_list as $key => $value ): ?>
+					<tr>
+						<td><a href="<?php echo site_url( 'index/edit_project/'.$value->id ) ?>"><?php echo $value->project_name ?></a></td>
+						<td><a href="<?php echo site_url( 'index/edit_project/'.$value->id ) ?>"><?php echo date("d-M-Y" , $value->create_date); ?></a></td>
+						<td><a href="<?php echo site_url( 'index/edit_project/'.$value->id ) ?>"><?php echo $value->count_countact ?></a></td>
+						<td>
+											
+						<?php  
 
-			<?php for ( $i=0; $i < 15; $i++ ) 
-			{ ?>
-				<tr>
-					<td><a href="<?php echo site_url( 'index/member/detail_project/'.$i ) ?>">Project <?php echo $i ?></a></td>
-					<td><a href="<?php echo site_url( 'index/member/detail_project/'.$i ) ?>"><?php echo date("d-M-Y"); ?></a></td>
-					<td><a href="<?php echo site_url( 'index/member/detail_project/'.$i ) ?>"><?php echo number_rand( 1 ) ?></a></td>
-				</tr>
-				
-			<? } ?>
+						switch ( $value->status ) 
+						{
+							case '1':
+								echo 'เปิด';
+								break;
+
+							case '0':
+								echo 'ปิด';
+								break;
+								
+							case '2':
+								echo 'มีผู้รับงานแล้ว';
+								break;		
+							
+							default:
+								# code...
+								break;
+						}
+
+						?>
+
+						</td>
+					</tr>
+				<?php endforeach ?>
 
 		</tbody>
 	</table>

@@ -42,6 +42,23 @@ class index extends MY_Controller
 		
 	// 	$this->index();
 	// }// _remap
+
+	/**
+	 * encrypt password
+	 * @param string $password
+	 * @return string
+	 */
+	public function encryptPassword($password = '') 
+	{
+		if (property_exists($this, 'modules_plug') && $this->modules_plug->has_filter('account_generate_hash_password')) {
+			return $this->modules_plug->do_filter('account_generate_hash_password', $password);
+		} else {
+			include_once dirname(dirname(__FILE__)).'/libraries/PasswordHash.php';
+			$PasswordHash = new PasswordHash(12, false);
+			return $PasswordHash->HashPassword($password);
+		}
+	}// encryptPassword
+	
 	
 	
 	public function index() 
@@ -102,6 +119,27 @@ class index extends MY_Controller
 		// link tags
 		// script tags
 		// end head tags output ##############################
+
+
+
+		// GET DATA PROJECT
+		$this->db->from( 'project AS p' );
+		$this->db->join( 'accounts AS a', 'p.account_id = a.account_id', 'left' );
+		$query = $this->db->get();
+		$output['data_project'] = $query->result();
+
+
+		// GET DATA FREELANCE
+		$this->db->where( 'type', 1 );
+		$query = $this->db->get( 'accounts' );
+		$output['data_freelance'] = $query->result();
+
+
+
+
+
+
+
 
 		// output
 		$this->generate_page('front/templates/index/index_view', $output);
@@ -260,7 +298,32 @@ class index extends MY_Controller
 		// SET VALUE 
 		$output = '';
 
+		if ( empty( $id ) ) 
+		{
+			redirect( site_url() );
+		}
+
 		$output['id'] = $id;
+
+		$this->db->where( 'account_id', $id );
+		$this->db->where( 'type', 1 );
+		$query = $this->db->get( 'accounts' );
+		$output['show_data'] = $query->row();
+
+
+		$this->db->from( 'job_ref_account AS jra' );
+		$this->db->join( 'job AS j', 'j.id = jra.id_job', 'left' );
+		$this->db->where( 'id_account', $id );
+		$query = $this->db->get();
+		$job_data = $query->result();
+
+		foreach ( $job_data as $key => $value ) 
+		{
+			$job[] = $value->name_job;
+		}
+
+		$output['job'] = implode( ' , ', $job );
+
 
 		$this->generate_page('front/templates/member/profile_freelance_view', $output);
 	
@@ -275,6 +338,29 @@ class index extends MY_Controller
 		$output = '';
 
 		$output['id'] = $id;
+
+		if ( empty( $id ) ) 
+		{
+			redirect( site_url() );
+		}
+
+
+		$this->db->from( 'project AS p' );
+		$this->db->join( 'accounts AS a', 'p.account_id = a.account_id', 'left' );
+		$this->db->where( 'p.id', $id );
+		$query = $this->db->get();
+		$output['show_data'] = $query->row();
+
+		if ( empty( $output['show_data'] ) ) 
+		{
+			redirect( site_url() );
+		}
+
+		$this->db->from( 'project_ref_job AS prj' );
+		$this->db->join( 'job AS j', 'prj.id_job = j.id', 'left' );
+		$this->db->where( 'prj.project_id', $id );
+		$query = $this->db->get();
+		$output['data_job'] = $query->result();
 
 		$this->generate_page('front/templates/member/profile_project_view', $output);
 	
@@ -309,4 +395,393 @@ class index extends MY_Controller
 	
 	} // END FUNCTION member
 	
+
+
+	public function edit_account()
+	{
+
+		// SET VALUE 
+		$output = '';
+
+		/**
+		*
+		*** START GET PROVINCE
+		*
+		**/
+		
+		$query = $this->db->get( 'province' );
+		$output['province'] = $query->result();
+		
+		
+		/** END GET PROVINCE **/
+
+		// -------------------------------------
+
+		/**
+		*
+		*** START GET JOB
+		*
+		**/
+		
+		$query = $this->db->get( 'job' );
+		$output['job'] = $query->result();
+		
+		
+		/** END GET JOB **/	
+
+		// -------------------------------------
+
+
+		// CHECK ACCOUNT LOGIN
+		$info = $this->account_model->get_account_cookie( 'member' );
+		if ( empty( $info ) ) 
+		{
+			redirect( site_url( 'account/login' ) );
+		}
+		$output['info'] = $info;
+
+		if ( $this->input->post() ) 
+		{
+
+			$data_post = $this->input->post();
+			
+			// load form validation
+			$this->load->library('form_validation');
+			$this->form_validation->set_rules('account_username', 'lang:account_username', 'trim|required|xss_clean|min_length[1]|no_space_between_text');
+			$this->form_validation->set_rules('account_email', 'lang:account_email', 'trim|required|valid_email|xss_clean');
+			$this->form_validation->set_rules('name', 'lang:Name', 'trim|required|xss_clean|min_length[1]|no_space_between_text');
+			$this->form_validation->set_rules('last_name', 'lang:Last Name', 'trim|required|xss_clean|min_length[1]|no_space_between_text');
+			if ($this->form_validation->run() == false) 
+			{
+				$output['form_status'] = 'error';
+				$output['form_status_message'] = '<ul>'.validation_errors('<li>', '</li>').'</ul>';
+				$output['show_data'] = $this->input->post();
+				$this->generate_page('front/templates/account/form_profile_account_view', $output);
+				return false;
+			}
+
+
+			$overset_error = '';
+			// check duplicate account (duplicate username)
+			$this->db->where('account_username', $data_post['account_username']);
+			$this->db->where( 'account_id !=', $info['id'] );
+			$query = $this->db->select('account_username')->get('accounts');
+			if ($query->num_rows() > 0) {
+				$query->free_result();
+				$overset_error .= $this->lang->line('account_username_already_exists').'<br />';
+			}
+			$query->free_result();
+			
+			// check duplicate account (duplicate email)
+			$this->db->where('account_email', $data_post['account_email']);
+			$this->db->where( 'account_id !=', $info['id'] );
+			$query = $this->db->select('account_email')->get('accounts');
+			if ($query->num_rows() > 0) {
+				$query->free_result();
+				$overset_error .= $this->lang->line('account_email_already_exists');
+			}
+			$query->free_result();
+
+			if ( ! empty( $overset_error ) ) 
+			{
+				$output['form_status'] = 'error';
+				$output['form_status_message'] = $overset_error;
+			}
+
+
+			if ( empty( $output['form_status'] ) ) 
+			{
+				
+				if ( empty( $data_post['account_password'] ) ) 
+				{
+					unset( $data_post['account_password'] );
+				}
+				else
+				{
+					$data_post['account_password'] = $this->encryptPassword($data_post['account_password']);
+				}
+
+				if ( empty( $data_post['name_job'] ) ) 
+				{
+					$this->db->where( 'id_account', $info['id'] );	
+					$this->db->delete( 'job_ref_account' );
+
+				}
+				else
+				{
+					$this->db->where( 'id_account', $info['id'] );	
+					$this->db->delete( 'job_ref_account' );
+
+					foreach ( $data_post['name_job'] as $key => $value ) 
+					{
+						$this->db->set( 'id_account', $info['id'] );
+						$this->db->set( 'id_job', $value );
+						$this->db->insert( 'job_ref_account' );
+					}
+				}
+				unset( $data_post['name_job'] );
+
+
+
+				$this->db->where( 'account_id', $info['id'] );
+				$this->db->update( 'accounts', $data_post );
+
+				$output['form_status'] = 'success';
+				$output['form_status_message'] = $this->lang->line('account_saved');
+			}
+
+
+			$output['show_data'] = $this->input->post();
+
+		}
+		else
+		{
+
+			// GET DATA ACCOUNT
+			$this->db->where( 'account_id', $info['id'] );
+			$query = $this->db->get( 'accounts' );
+			$data = $query->row_array();
+			$output['show_data'] = $data;
+
+			// GET DATA JOB
+			$this->db->where( 'id_account', $info['id'] );
+			$query = $this->db->get( 'job_ref_account' );
+			$data_job = $query->result();
+			$array_job = array();
+			foreach ( $data_job as $key => $value ) 
+			{
+				$array_job[] =  $value->id_job;
+			}
+
+			$output['show_data']['name_job'] = $array_job;	
+
+		}
+
+		$this->generate_page('front/templates/account/form_profile_account_view', $output);
+	} // END FUNCTION edit_account
+
+
+	public function project()
+	{
+		// SET VALUE 
+		$output = '';
+
+		// CHECK ACCOUNT LOGIN
+		$info = $this->account_model->get_account_cookie( 'member' );
+		if ( empty( $info ) ) 
+		{
+			redirect( site_url( 'account/login' ) );
+		}
+
+		$this->db->where( 'account_id', $info['id'] );
+		$query = $this->db->get( 'project' );
+		$data = $query->result();
+
+		$output['data_list'] = $data;
+
+
+		$this->generate_page('front/templates/member/profile_project_list_view', $output);
+	
+	} // END FUNCTION project
+
+
+	public function project_add()
+	{
+		// SET VALUE 
+		$output = '';
+
+		// CHECK ACCOUNT LOGIN
+		$info = $this->account_model->get_account_cookie( 'member' );
+		if ( empty( $info ) ) 
+		{
+			redirect( site_url( 'account/login' ) );
+		}
+
+		/**
+		*
+		*** START GET JOB
+		*
+		**/
+		
+		$query = $this->db->get( 'job' );
+		$output['job'] = $query->result();
+		
+		
+		/** END GET JOB **/	
+
+
+		if ( $this->input->post() ) 
+		{
+			$data_post = $this->input->post();
+
+			// load form validation
+			$this->load->library('form_validation');
+			$this->form_validation->set_rules('project_name', 'lang:ชื่อโปรเจค', 'trim|required|xss_clean|min_length[1]');
+			$this->form_validation->set_rules('project_detail', 'lang:ข้อมูลโปรเจค', 'trim|required|xss_clean|min_length[1]');
+			$this->form_validation->set_rules('price', 'lang:ราคา', 'trim|required|xss_clean|min_length[1]|no_space_between_text');
+			$this->form_validation->set_rules('long_term', 'lang:ระยะเวลา', 'trim|required|xss_clean|min_length[1]|no_space_between_text');
+			if ($this->form_validation->run() == false) 
+			{
+				$output['form_status'] = 'error';
+				$output['form_status_message'] = '<ul>'.validation_errors('<li>', '</li>').'</ul>';
+				$output['show_data'] = $this->input->post();
+				$this->generate_page('front/templates/member/profile_project_add_view', $output);
+				return false;
+			}
+			else
+			{
+
+				$array_job = $data_post['name_job'];
+				unset( $data_post['name_job'] );
+
+				$data_post['create_date'] = time();
+				$data_post['account_id'] = $info['id'];
+
+				$this->db->insert( 'project', $data_post );
+
+				$id_project = $this->db->insert_id();
+
+				if ( ! empty( $array_job ) ) 
+				{
+					foreach ( $array_job as $key => $value ) 
+					{
+						$this->db->set( 'project_id', $id_project );
+						$this->db->set( 'id_job', $value );
+						$this->db->insert( 'project_ref_job' );
+					}
+				}
+
+				redirect( 'index/project' );
+
+			}
+
+		}
+
+
+
+		$this->generate_page('front/templates/member/profile_project_add_view', $output);
+	
+	} // END FUNCTION project
+
+
+	public function edit_project( $id = '' )
+	{
+
+		// SET VALUE 
+		$output = '';
+
+		// CHECK ACCOUNT LOGIN
+		$info = $this->account_model->get_account_cookie( 'member' );
+		if ( empty( $info ) ) 
+		{
+			redirect( site_url( 'account/login' ) );
+		}
+
+		/**
+		*
+		*** START GET JOB
+		*
+		**/
+		
+		$query = $this->db->get( 'job' );
+		$output['job'] = $query->result();
+		
+		
+		/** END GET JOB **/		
+
+
+
+		$this->db->where( 'id', $id );
+		$this->db->where( 'account_id', $info['id'] );
+		$query = $this->db->get( 'project' );
+		$data = $query->row();
+		$output['show_data'] = $data;
+
+
+		$this->db->where( 'project_id', $id );
+		$query = $this->db->get( 'project_ref_job' );
+		$data = $query->result();
+		$project_job = array();
+		foreach ( $data as $key => $value ) 
+		{
+			$project_job[] = $value->id_job;
+		}
+
+		$output['project_job'] = $project_job;
+
+
+		if ( $this->input->post() ) 
+		{
+			$data_post = $this->input->post();
+
+			// load form validation
+			$this->load->library('form_validation');
+			$this->form_validation->set_rules('project_name', 'lang:ชื่อโปรเจค', 'trim|required|xss_clean|min_length[1]');
+			$this->form_validation->set_rules('project_detail', 'lang:ข้อมูลโปรเจค', 'trim|required|xss_clean|min_length[1]');
+			$this->form_validation->set_rules('price', 'lang:ราคา', 'trim|required|xss_clean|min_length[1]|no_space_between_text');
+			$this->form_validation->set_rules('long_term', 'lang:ระยะเวลา', 'trim|required|xss_clean|min_length[1]|no_space_between_text');
+			if ($this->form_validation->run() == false) 
+			{
+				$output['form_status'] = 'error';
+				$output['form_status_message'] = '<ul>'.validation_errors('<li>', '</li>').'</ul>';
+				$output['show_data'] = $this->input->post();
+
+				$output['show_data'] = json_decode(json_encode($output['show_data']) , false );
+
+				$this->generate_page('front/templates/member/profile_project_edit_view', $output);
+				return false;
+			}
+			else
+			{
+
+				$array_job = $data_post['name_job'];
+				unset( $data_post['name_job'] );
+
+				$data_post['create_date'] = time();
+
+				$this->db->where( 'id', $id );
+				$this->db->update( 'project', $data_post );
+
+				$this->db->where( 'project_id', $id );
+				$this->db->delete( 'project_ref_job' );
+
+				if ( ! empty( $array_job ) ) 
+				{
+					foreach ( $array_job as $key => $value ) 
+					{
+						$this->db->set( 'project_id', $id );
+						$this->db->set( 'id_job', $value );
+						$this->db->insert( 'project_ref_job' );
+					}
+				}
+
+				redirect( 'index/project' );
+
+			}
+
+		}
+
+
+
+
+		$this->generate_page('front/templates/member/profile_project_edit_view', $output);
+		
+	
+	} // END FUNCTION edit_project
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 }

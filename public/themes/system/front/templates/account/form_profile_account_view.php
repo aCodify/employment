@@ -1,8 +1,8 @@
 <article class="general-page-container">
 	
-	<h1><?php echo lang('account_register'); ?> <?php $name_register = ( $this->input->get( 'type' ) == 2 ) ? "แบบ ฟรีแลนซ์" : 'แบบ ผู้ว่าจ้าง' ; ?></h1>
+	<h1>จัดการข้อมูลสมาชิก</h1>
 
-	<?php echo form_open( site_url( 'account/register?type='.$this->input->get( 'type' ) ) , array('class' => 'form-horizontal')); ?> 
+	<?php echo form_open( current_url() , array('class' => 'form-horizontal')); ?> 
 		<div class="form-status-placeholder">
 			<?php if (isset($form_status) && isset($form_status_message)) { ?> 
 			<div class="alert alert-<?php echo $form_status; ?>"><button type="button" class="close" data-dismiss="alert">&times;</button><?php echo $form_status_message; ?></div>
@@ -41,7 +41,7 @@
 				<div class="name_input">
 					อีเมล์
 				</div> 
-				<input type="email" class="span3" name="account_email" value="<?php if (isset($account_email)) {echo $account_email;} ?>" maxlength="255" id="account_email" />
+				<input type="email" class="span3" name="account_email" value="<?php if (isset($show_data['account_email'])) {echo $show_data['account_email'];} ?>" maxlength="255" id="account_email" />
 			</div>
 
 			<div class="box_input">
@@ -50,15 +50,7 @@
 				</div> 
 				<input type="password" class="span3" name="account_password" value="" maxlength="255" id="account_password" />
 			</div>		
-
-			<div class="box_input">
-				<div class="name_input">
-					ยืนยันรหัสผ่าน
-				</div> 
-				<input type="password" class="span3" name="account_confirm_password" value="" maxlength="255" id="account_confirm_password" />
-			</div>			
-
-
+		
 			<hr>
 
 			<div class="box_input">
@@ -111,6 +103,8 @@
 				</select>
 			</div>
 
+			<input type="hidden" name="type" value="<?php echo $show_data['type'] ?>">
+
 			<div class="box_input">
 				<div class="name_input">
 					เบอร์โทร
@@ -118,9 +112,10 @@
 				<input name="phone" type="text" class="span3" value="<?php echo $retVal = ( ! empty( $show_data['phone'] ) ) ? $show_data['phone'] : '' ; ?>">
 			</div>
 
-			<?php if ( $this->input->get( 'type' ) == 1 ): ?>
+			<?php if ( $show_data['type'] != 2 ): ?>
 				
 			
+
 			<div class="box_input">
 				<div class="name_input">
 					ความสามารถ
@@ -128,8 +123,18 @@
 				<div style="display: inline-block;">
 					<?php foreach ( $job as $key => $value ): ?>
 						
+						<?php 
+						$checked = '';
+						if ( in_array( $value->id , $show_data['name_job'] ) ) 
+						{
+							$checked = 'checked';
+						}
+
+
+						?>
+
 						<label>
-							<input type="checkbox" value="<?php echo $value->id ?>" name="name_job[]" > <?php echo $value->name_job ?>
+							<input <?php echo $checked ?> type="checkbox" value="<?php echo $value->id ?>" name="name_job[]" > <?php echo $value->name_job ?>
 						</label>
 
 					<?php endforeach ?>
@@ -151,29 +156,13 @@
 			</div>
 
 			<?php endif ?>
-			
-			<div class="control-group">
-				<?php if ($plugin_captcha != null) {
-					echo $plugin_captcha;
-				} else { ?> 
-				<label style="width: auto;" class="control-label captcha-field" for="captcha">
-					Captcha
-				</label>
-				<div class="controls">
-					<img src="<?php echo $this->base_url; ?>public/images/securimage_show.php" alt="securimage" class="captcha" />
-					<a href="#" onclick="$('.captcha').attr('src', '<?php echo $this->base_url; ?>public/images/securimage_show.php?' + Math.random()); return false" tabindex="-1"><img src="<?php echo $this->base_url; ?>public/images/reload.gif" alt="" /></a>
-					<div>
-						<input type="text" name="captcha" value="<?php if (isset($captcha)) {echo $captcha;} ?>" class="input-captcha" autocomplete="off" id="captcha" />
-					</div>
-				</div>
-				<?php } ?> 
-			</div>
+
 
 			<?php echo $this->modules_plug->do_filter('account_register_form_bottom'); ?> 
 			
 			<div class="control-group">
 				<div class="controls">
-					<button type="submit" class="btn btn-primary"><?php echo lang('account_register'); ?></button> 
+					<button type="submit" class="btn btn-primary"><?php echo lang('บันทึก'); ?></button> 
 					<?php //if ($this->config_model->loadSingle('member_verification') == '1') {echo anchor('account/resend-activate', lang('account_not_get_verify_email'));} ?>
 				</div>
 			</div>

@@ -11,18 +11,18 @@
 		<div class="control-group">
 			<label class="control-label" for="account_username"><?php echo lang('account_username'); ?>: </label>
 			<div class="controls">
-				<input type="text" name="account_username" value="<?php if (isset($account_username)) {echo $account_username;} ?>" maxlength="255" id="account_username" />
+				<input class="span3" type="text" name="account_username" value="<?php if (isset($account_username)) {echo $account_username;} ?>" maxlength="255" id="account_username" />
 			</div>
 		</div>
 	
 		<div class="control-group">
 			<label class="control-label" for="account_password"><?php echo lang('account_password'); ?>: </label>
 			<div class="controls">
-				<input type="password" name="account_password" maxlength="255" id="account_password" />
+				<input class="span3" type="password" name="account_password" maxlength="255" id="account_password" />
 			</div>
 		</div>
 	
-		<div class="control-group">
+		<div class="control-group display_none">
 			<div class="controls">
 				<label class="checkbox inline"><input type="checkbox" name="remember" value="yes" /> <?php echo lang('account_remember_my_login'); ?></label>
 			</div>
@@ -38,7 +38,7 @@
 				<img src="<?php echo $this->base_url; ?>public/images/securimage_show.php" alt="securimage" class="captcha" />
 				<a href="#" onclick="$('.captcha').attr('src', '<?php echo $this->base_url; ?>public/images/securimage_show.php?' + Math.random()); return false" tabindex="-1"><img src="<?php echo $this->base_url; ?>public/images/reload.gif" alt="" /></a>
 				<div>
-					<input type="text" name="captcha" value="<?php if (isset($captcha)) {echo $captcha;} ?>" class="input-captcha" autocomplete="off" id="captcha" />
+					<input class="span3" type="text" name="captcha" value="<?php if (isset($captcha)) {echo $captcha;} ?>" class="input-captcha" autocomplete="off" id="captcha" />
 				</div>
 			</div>
 		</div>
@@ -47,7 +47,7 @@
 
 		<div class="control-group">
 			<div class="controls">
-				<button type="submit" class="btn btn-primary"><?php echo lang('account_login'); ?></button> <?php echo anchor('account/forgotpw', lang('account_forget_userpass')); ?> 
+				<button type="submit" class="btn btn-primary"><?php echo lang('account_login'); ?></button> <?php //echo anchor('account/forgotpw', lang('account_forget_userpass')); ?> 
 			</div>
 		</div>
 

@@ -99,8 +99,9 @@
                                         Welcome
                                     </span>
                                     <span class="mon-day">
-                                                                                Dec 01                                    </span>
-                                    <span class="year">2013</span>
+                                        <?php echo date( 'M d' ) ?>                                  
+                                    </span>
+                                    <span class="year"><?php echo date( 'Y' ) ?></span>
                                 </time>
                             </a>
                         </div>
@@ -135,23 +136,58 @@
                     </article>
                 </section>
                 <aside class="main">
-                    <section class="module snipts">
-                        <h1><span class="icon-user"></span> Login</h1>
-                        <p style="margin-bottom: 12px;" >
-                            <span class="icon-circle-arrow-right"></span>
-                            <span class='set_name' >&nbsp;USER : </span>
-                            <input data-placement="right" title='Please enter username' placeholder='username' type="text" class="span2 login">
-                        </p>
-                        <p style="margin-bottom: 12px;" >
-                            <span class="icon-circle-arrow-right"></span>
-                            <span class='set_name' >&nbsp;PASS : </span>
-                            <input data-placement="right" title='Please enter password' placeholder='password' type="password" class="span2 login">
-                        </p>
-                        <p style="margin-bottom: 4px;" >
-                            <span class="icon-circle-arrow-right"></span>
-                            &nbsp;<a href="<?php echo site_url( 'index/forget_password' ) ?>">Forget Password </a> , <a href="<?php echo site_url( 'index/register' ) ?>">Register</a>
-                        </p>
-                    </section>
+
+                    <?php $info = $this->account_model->get_account_cookie( 'member' ) ?>
+
+                    <?php if ( ! empty( $info ) ): ?>
+                        <?php $data_account = $this->account_model->get_account_data( $info['id'] ) ?>
+                        <section class="module snipts">
+                            <h1><span class="icon-user"></span> Data Account</h1>
+                            <p style="margin-bottom: 12px;" >
+                                <span class="icon-circle-arrow-right"></span>
+                                <span class='set_name' >&nbsp;Name  : </span>
+                                <a href="<?php echo site_url( 'index/edit_account' ) ?>">
+                                    <span><?php echo $data_account->name . ' ' .$data_account->last_name ?></span>
+                                </a> 
+
+                                <?php if ( $data_account->type == 2 ): ?>
+                                <br>
+                                <span class="icon-circle-arrow-right"></span>   
+                                <span class='set_name' >&nbsp;จัดการ  : </span>
+                                <a href="<?php echo site_url( 'index/project' ) ?>">
+                                    <span>Project </span>
+                                </a>    
+                                <?php endif ?>
+                                    
+                            </p>
+            
+                            <p style="margin-bottom: 4px;" >
+                                <span class="icon-circle-arrow-right"></span>
+                                &nbsp;<a href="<?php echo site_url( 'account/logout' ) ?>">Logout</a>
+                            </p>
+                        </section>
+                    <?php else: ?>
+                        <?php echo form_open( site_url( 'account/login' ) , array('class' => 'form-horizontal')); ?> 
+                        <section class="module snipts">
+                            <h1><span class="icon-user"></span> Login</h1>
+                            <p style="margin-bottom: 12px;" >
+                                <span class="icon-circle-arrow-right"></span>
+                                <span class='set_name' >&nbsp;USER : </span>
+                                <input name="account_username" data-placement="right" title='Please enter username' placeholder='username' type="text" class="span2 login">
+                            </p>
+                            <p style="margin-bottom: 12px;" >
+                                <span class="icon-circle-arrow-right"></span>
+                                <span class='set_name' >&nbsp;PASS : </span>
+                                <input name="account_password" data-placement="right" title='Please enter password' placeholder='password' type="password" class="span2 login">
+                            </p>
+                            <button class="display_none">Login</button>
+                            <p style="margin-bottom: 4px;" >
+                                <span class="icon-circle-arrow-right"></span>
+                                &nbsp;<a href="<?php echo site_url( 'index/forget_password' ) ?>">Forget Password </a> , <a href="<?php echo site_url( 'index/register' ) ?>">Register</a>
+                            </p>
+                        </section>
+                        <?php echo form_close(); ?> 
+                    <?php endif ?>
                     <hr>
                     <section class="module snipts">
                         <h1><span class="icon-bookmark"></span> Menu</h1>
@@ -160,10 +196,10 @@
                             <li><a href="<?php echo site_url( 'index/freelance' ) ?>">Freelance List</a></li>
                             <li><a href="<?php echo site_url( 'index/principal' ) ?>">Project List</a></li>
                         </ul>
-                        <h1><span class="icon-bookmark"></span> เมนูสำหรับ ผู้จ้างงาน ( แสดงก็ต่อเมื่อ login แบบผู้จ้างงาน )</h1>
+                       <!--  <h1><span class="icon-bookmark"></span> เมนูสำหรับ ผู้จ้างงาน ( แสดงก็ต่อเมื่อ login แบบผู้จ้างงาน )</h1>
                         <ul>
                             <li><a href="<?php echo site_url( 'index/member/view_project' ) ?>">View Project For member ผู้จ้างงาน</a></li>
-                        </ul>
+                        </ul> -->
                     </section>
                 </aside>
             </section>

@@ -10,17 +10,19 @@
 			</tr>
 		</thead>
 		<tbody>
-
-			<?php for ( $i=1; $i < 15; $i++ ) 
-			{ ?>
+			
+				<?php foreach ( $data_project as $key => $value ): ?>
+					
 				<tr>
-					<td><a href="<?php echo site_url( 'index/profile_project/'.$i ) ?>">Project <?php echo $i ?></a></td>
-					<td><a href="<?php echo site_url( 'index/profile_project/'.$i ) ?>">Ms. Joney Loyas</a></td>
-					<td><a href="<?php echo site_url( 'index/profile_project/'.$i ) ?>">0888888888</a></td>
-					<td><a href="<?php echo site_url( 'index/profile_project/'.$i ) ?>">30 date</a></td>
+					<td><a href="<?php echo site_url( 'index/profile_project/'.$value->id ) ?>"><?php echo $value->project_name ?></a></td>
+					<td><a href="<?php echo site_url( 'index/profile_project/'.$value->id ) ?>"><?php echo $value->name .' '.$value->last_name ?></a></td>
+					<td><a href="<?php echo site_url( 'index/profile_project/'.$value->id ) ?>"><?php echo $value->phone ?></a></td>
+					<td><a href="<?php echo site_url( 'index/profile_project/'.$value->id ) ?>"><?php echo $value->long_term ?></a></td>
 				</tr>
+
+				<?php endforeach ?>
 				
-			<?php } ?>
+
 
 		</tbody>
 	</table>
@@ -43,17 +45,30 @@
 		</thead>
 		<tbody>
 
-			<?php for ( $i=1; $i < 15; $i++ ) 
-			{ ?>
+			<?php foreach ( $data_freelance as $key => $value ): ?>
+				
+
+				<?php  
+				$this->db->from( 'job_ref_account AS jra' );
+				$this->db->join( 'job AS j', 'jra.id_job = j.id', 'left' );
+				$this->db->where( 'jra.id_account', $value->account_id );
+				$query = $this->db->get();
+				$data_job = $query->result();
+				$job = array();
+				foreach ( $data_job as $key_job => $value_job ) 
+				{
+					$job[] = $value_job->name_job;
+				}
+				$job = implode( ' , ', $job);
+				?>
 
 				<tr>
-					<td><a href="<?php echo site_url( 'index/profile_freelance/'.$i ) ?>">Joney Loyas <?php echo $i ?></a></td>
-					<td><a href="<?php echo site_url( 'index/profile_freelance/'.$i ) ?>">Programmer</a></td>
-					<td><a href="<?php echo site_url( 'index/profile_freelance/'.$i ) ?>">0888888888</a></td>
+					<td><a href="<?php echo site_url( 'index/profile_freelance/'.$value->account_id ) ?>"><?php echo $value->name . ' ' .$value->last_name ?></a></td>
+					<td><a href="<?php echo site_url( 'index/profile_freelance/'.$value->account_id ) ?>"><?php echo $job = ( ! empty( $job ) ) ? $job : 'ไม่มีข้อมูล' ; ?></a></td>
+					<td><a href="<?php echo site_url( 'index/profile_freelance/'.$value->account_id ) ?>"><?php echo $phone = ( ! empty( $value->phone ) ) ? $value->phone : 'ไม่มีข้อมูล' ; ?></a></td>
 				</tr>
-				
-			<?php } ?>
 
+			<?php endforeach ?>
 		</tbody>
 	</table>
 

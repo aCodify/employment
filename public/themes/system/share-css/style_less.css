@@ -81,6 +81,9 @@
 .set-header-profile {
   color: #00B2C2;
 }
+.display_none {
+  display: none;
+}
 .page-add-project input[type="text"],
 .page-add-project input[type="password"],
 .page-add-project input[type="datetime"],
@@ -97,4 +100,7 @@
 .page-add-project input[type="color"] {
   height: 27px;
   padding: 1px 1px 1px 4px;
+}
+.form-horizontal .controls {
+  margin-left: 9em;
 }

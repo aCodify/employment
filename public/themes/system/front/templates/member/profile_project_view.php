@@ -5,68 +5,70 @@
 		<div class="name_input">
 			Number Project 	
 		</div>
-		: 0000<?php echo $id = ( ! empty( $id ) ) ? $id : '' ; ?>
+		: <?php echo $show_data->project_code ?>
 	</div>
 
 	<div class="box_input">
 		<div class="name_input">
-			Project Name
+			ชื่อโปรเจค
 		</div> 
-		: Project <?php echo $id = ( ! empty( $id ) ) ? $id : '' ; ?>
+		: <?php echo $show_data->project_name ?>
 	</div>
 
 	<div class="box_input">
 		<div class="name_input">
-			Detail Project
+			ข้อมูลโปรเจค
 		</div> 	
-		:  ทำการเขียนโปรแกรมด้วย PHP โดยสั่งงานให้หุ่นยนต์ทำการทำงานเก็บขยะ
+		:  <?php echo $show_data->project_detail ?>
 	</div>
 
 	<div class="box_input">
 		<div class="name_input">
-			Type Job 	
+			ทักษะในการทำงาน	
 		</div>
 		<ul style="padding-left: 8em;">
-			<li>PHP</li>
-			<li>Javascript</li>
-			<li>MySQL</li>
+			<?php foreach ( $data_job as $key => $value ): ?>
+				
+				<li><?php echo $value->name_job ?></li>
+
+			<?php endforeach ?>
 		</ul>
 	</div>
 
 
 	<div class="box_input">
 		<div class="name_input">
-			Long-Term
+			ระยะเวลา
 		</div> 
-		: 30 วัน
+		: <?php echo $show_data->long_term ?> วัน
 	</div>
 
 	<div class="box_input">
 		<div class="name_input">
-			Price
+			ราคาในการจ้างงาน
 		</div> 
-		: 25,000 บาท
+		: <?php echo number_format( $show_data->price ) ?> บาท
 	</div>
 
 	<div class="box_input">
 		<div class="name_input">
-			Contact 	
+			ที่อยู่ 	
 		</div>
-		: 38 Petkasem Road; Phasicharoen; Bangkae Bangkok 10160; Thailand 
+		: <?php echo $show_data->address ?>
 	</div>
 
 	<div class="box_input">
 		<div class="name_input">
 			Phone
 		</div> 
-		: 0888888888
+		: <?php echo $show_data->phone ?>
 	</div>
 
 	<div class="box_input">
 		<div class="name_input">
 			E-Mail
 		</div> 
-		: i@me.com
+		: <?php echo $show_data->account_email ?>
 	</div>
 
 	<hr>

@@ -19,7 +19,7 @@
 }
 #body-employment .name_input {
   float: left;
-  width: 9em;
+  width: 11em;
 }
 #body-employment label input {
   margin-top: 0;
@@ -102,5 +102,5 @@
   padding: 1px 1px 1px 4px;
 }
 .form-horizontal .controls {
-  margin-left: 9em;
+  margin-left: 11em;
 }

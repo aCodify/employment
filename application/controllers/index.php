@@ -451,6 +451,7 @@ class index extends MY_Controller
 			$this->form_validation->set_rules('account_email', 'lang:account_email', 'trim|required|valid_email|xss_clean');
 			$this->form_validation->set_rules('name', 'lang:Name', 'trim|required|xss_clean|min_length[1]|no_space_between_text');
 			$this->form_validation->set_rules('last_name', 'lang:Last Name', 'trim|required|xss_clean|min_length[1]|no_space_between_text');
+			$this->form_validation->set_rules('id_card', 'lang:กรุณาใส่เลขประจำตัวประชาชนให้ถูกต้อง', 'trim|required|xss_clean|exact_length[13]'); 
 			if ($this->form_validation->run() == false) 
 			{
 				$output['form_status'] = 'error';

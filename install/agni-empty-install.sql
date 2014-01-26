@@ -722,7 +722,7 @@ CREATE TABLE `an_province` (
   `name_province` text COLLATE utf8_unicode_ci,
   `name_province_en` varchar(256) COLLATE utf8_unicode_ci NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 LOCK TABLES `an_province` WRITE;
 /*!40000 ALTER TABLE `an_province` DISABLE KEYS */;

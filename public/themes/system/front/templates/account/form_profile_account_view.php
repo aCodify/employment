@@ -69,6 +69,13 @@
 
 			<div class="box_input">
 				<div class="name_input">
+					เลขประจำตัวประชาชน
+				</div> 
+				<input name="id_card" type="text" class="span3" value="<?php echo $retVal = ( ! empty( $show_data['id_card'] ) ) ? $show_data['id_card'] : '' ; ?>">
+			</div>
+
+			<div class="box_input">
+				<div class="name_input">
 					ที่อยู่
 				</div> 	
 				<textarea name="address" rows="3" name="" class="span6" style="margin-bottom: 0;"><?php echo $retVal = ( ! empty( $show_data['address'] ) ) ? $show_data['address'] : '' ; ?></textarea>

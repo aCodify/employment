@@ -97,7 +97,7 @@ class register extends MY_Controller
 			$this->form_validation->set_rules('account_confirm_password', 'lang:account_confirm_password', 'trim|required|matches[account_password]');
 			$this->form_validation->set_rules('name', 'lang:Name', 'trim|required|xss_clean|min_length[1]|no_space_between_text');
 			$this->form_validation->set_rules('last_name', 'lang:Last Name', 'trim|required|xss_clean|min_length[1]|no_space_between_text');
-
+			$this->form_validation->set_rules('id_card', 'lang:กรุณาใส่เลขประจำตัวประชาชนให้ถูกต้อง', 'trim|required|xss_clean|exact_length[13]'); 
 			if ($this->form_validation->run() == false) {
 				$output['form_status'] = 'error';
 				$output['form_status_message'] = '<ul>'.validation_errors('<li>', '</li>').'</ul>';

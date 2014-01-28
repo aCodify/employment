@@ -7,7 +7,7 @@
 #
 # Host: localhost (MySQL 5.5.29)
 # Database: employment
-# Generation Time: 2557-01-25 19:04:50 +0000
+# Generation Time: 2557-01-28 14:18:43 +0000
 # ************************************************************
 
 
@@ -148,7 +148,9 @@ VALUES
   (14,4,1,'Mozilla/5.0 (Macintosh; Intel Mac OS X 10.9; rv:26.0) Gecko/20100101 Firefox/26.0','Apple','Firefox 26.0','127.0.0.1','2014-01-25 06:07:01','2014-01-25 11:07:01',1,'Success'),
   (15,3,1,'Mozilla/5.0 (Macintosh; Intel Mac OS X 10.9; rv:26.0) Gecko/20100101 Firefox/26.0','Apple','Firefox 26.0','127.0.0.1','2014-01-26 01:11:31','2014-01-25 18:11:31',1,'Success'),
   (16,2,1,'Mozilla/5.0 (Macintosh; Intel Mac OS X 10.9; rv:26.0) Gecko/20100101 Firefox/26.0','Apple','Firefox 26.0','127.0.0.1','2014-01-26 01:12:21','2014-01-25 18:12:21',1,'Success'),
-  (17,4,1,'Mozilla/5.0 (Macintosh; Intel Mac OS X 10.9; rv:26.0) Gecko/20100101 Firefox/26.0','Apple','Firefox 26.0','127.0.0.1','2014-01-26 01:20:36','2014-01-25 18:20:36',1,'Success');
+  (17,4,1,'Mozilla/5.0 (Macintosh; Intel Mac OS X 10.9; rv:26.0) Gecko/20100101 Firefox/26.0','Apple','Firefox 26.0','127.0.0.1','2014-01-26 01:20:36','2014-01-25 18:20:36',1,'Success'),
+  (18,2,1,'Mozilla/5.0 (Macintosh; Intel Mac OS X 10.9; rv:26.0) Gecko/20100101 Firefox/26.0','Apple','Firefox 26.0','127.0.0.1','2014-01-26 12:45:06','2014-01-26 05:45:06',1,'Success'),
+  (19,2,1,'Mozilla/5.0 (Macintosh; Intel Mac OS X 10.9; rv:26.0) Gecko/20100101 Firefox/26.0','Apple','Firefox 26.0','127.0.0.1','2014-01-26 10:19:49','2014-01-26 15:19:49',1,'Success');
 
 /*!40000 ALTER TABLE `an_account_logins` ENABLE KEYS */;
 UNLOCK TABLES;
@@ -175,7 +177,7 @@ LOCK TABLES `an_account_sites` WRITE;
 INSERT INTO `an_account_sites` (`account_site_id`, `account_id`, `site_id`, `account_last_login`, `account_last_login_gmt`, `account_online_code`)
 VALUES
   (1,1,1,1390586853,1390561653,'f3a16462540505f5bd2ab5806acfe6ca'),
-  (2,2,1,1390673541,1390648341,'d16dcd0da8f70fb4083cd4ad89f52d23'),
+  (2,2,1,1390749589,1390724389,'25f2e03c38788fa48b77aa3a2d21d135'),
   (3,4,1,1390674036,1390648836,'0683ab33c9c9406b9769da09e3ea9706'),
   (4,3,1,1390673491,1390648291,'d16dcd0da8f70fb4083cd4ad89f52d23');
 
@@ -218,19 +220,20 @@ CREATE TABLE `an_accounts` (
   `other_skill` text,
   `experience` text,
   `type` int(1) DEFAULT NULL,
+  `id_card` int(13) DEFAULT NULL,
   PRIMARY KEY (`account_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 LOCK TABLES `an_accounts` WRITE;
 /*!40000 ALTER TABLE `an_accounts` DISABLE KEYS */;
 
-INSERT INTO `an_accounts` (`account_id`, `account_username`, `account_email`, `account_salt`, `account_password`, `account_fullname`, `account_birthdate`, `account_avatar`, `account_signature`, `account_timezone`, `account_language`, `account_create`, `account_create_gmt`, `account_last_login`, `account_last_login_gmt`, `account_online_code`, `account_status`, `account_status_text`, `account_new_email`, `account_new_password`, `account_confirm_code`, `name`, `last_name`, `address`, `province`, `phone`, `other_skill`, `experience`, `type`)
+INSERT INTO `an_accounts` (`account_id`, `account_username`, `account_email`, `account_salt`, `account_password`, `account_fullname`, `account_birthdate`, `account_avatar`, `account_signature`, `account_timezone`, `account_language`, `account_create`, `account_create_gmt`, `account_last_login`, `account_last_login_gmt`, `account_online_code`, `account_status`, `account_status_text`, `account_new_email`, `account_new_password`, `account_confirm_code`, `name`, `last_name`, `address`, `province`, `phone`, `other_skill`, `experience`, `type`, `id_card`)
 VALUES
-  (0,'Guest','none@localhost',NULL,NULL,'Guest',NULL,NULL,NULL,'UP7',NULL,'2012-04-03 19:25:44','2012-04-03 12:25:44',NULL,NULL,NULL,0,'You can\'t login with this account.',NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL),
-  (1,'admin','i@me.com',NULL,'$2a$12$T3rcBsUcj/ZDApC3.Jsy8u/KLzEAvxbqEDLYs.KJSwamz7j49OtIu',NULL,NULL,NULL,NULL,'UP7',NULL,'2011-04-20 19:20:04','2011-04-20 12:20:04','2014-01-25 01:07:33','2014-01-24 18:07:33','e2135bb4faf4fb999e3bbebe86ed1cdf',1,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL),
-  (2,'root','ia@me.com',NULL,'$2a$12$WoAoMC9EEZxq48HgRp59h.OP6sk0Ez75AA/HVnPaAQUp/QljNf2lO',NULL,NULL,'mid-244518c3bd81eb23d956a01ec2eb360c.png',NULL,'UP7',NULL,'2014-01-25 02:35:43','2014-01-24 19:35:43','2014-01-26 01:12:21','2014-01-25 18:12:21',NULL,1,NULL,NULL,NULL,'YEtYJS','name1','last_name1','21/1',102,'0888888888','no','no',1),
-  (3,'root2','iar@me.com',NULL,'$2a$12$oGjGwsgGFHIhEIjSA/WtruJ2NVK4GUe7I4F2po0yVeRiH2dFw9Bd.',NULL,NULL,'mid-244518c3bd81eb23d956a01ec2eb360c.png',NULL,'UP7',NULL,'2014-01-25 02:39:51','2014-01-24 19:39:51','2014-01-26 01:11:31','2014-01-25 18:11:31',NULL,1,NULL,NULL,NULL,'v7hkHA','name2','last_name2','21/1',102,'0888888888','no','no',1),
-  (4,'root_project','io@ma.com',NULL,'$2a$12$Z6jPW4ulZBCV.AUum4/24O023vqBsWS/DGrSFQRCgGygowb0R0GNq',NULL,NULL,'mid-244518c3bd81eb23d956a01ec2eb360c.png',NULL,'UP7',NULL,'2014-01-25 18:06:39','2014-01-25 11:06:39','2014-01-26 01:20:36','2014-01-25 18:20:36',NULL,1,NULL,NULL,NULL,'5FA6Kc','name3','last_name3','21/1',102,'0888888888',NULL,NULL,2);
+  (0,'Guest','none@localhost',NULL,NULL,'Guest',NULL,NULL,NULL,'UP7',NULL,'2012-04-03 19:25:44','2012-04-03 12:25:44',NULL,NULL,NULL,0,'You can\'t login with this account.',NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL),
+  (1,'admin','i@me.com',NULL,'$2a$12$T3rcBsUcj/ZDApC3.Jsy8u/KLzEAvxbqEDLYs.KJSwamz7j49OtIu',NULL,NULL,NULL,NULL,'UP7',NULL,'2011-04-20 19:20:04','2011-04-20 12:20:04','2014-01-25 01:07:33','2014-01-24 18:07:33','e2135bb4faf4fb999e3bbebe86ed1cdf',1,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL),
+  (2,'root','ia@me.com',NULL,'$2a$12$WoAoMC9EEZxq48HgRp59h.OP6sk0Ez75AA/HVnPaAQUp/QljNf2lO',NULL,NULL,'mid-244518c3bd81eb23d956a01ec2eb360c.png',NULL,'UP7',NULL,'2014-01-25 02:35:43','2014-01-24 19:35:43','2014-01-26 22:19:49','2014-01-26 15:19:49',NULL,1,NULL,NULL,NULL,'YEtYJS','name1','last_name1','21/1',102,'0888888888','no','no',1,2147483647),
+  (3,'root2','iar@me.com',NULL,'$2a$12$oGjGwsgGFHIhEIjSA/WtruJ2NVK4GUe7I4F2po0yVeRiH2dFw9Bd.',NULL,NULL,'mid-244518c3bd81eb23d956a01ec2eb360c.png',NULL,'UP7',NULL,'2014-01-25 02:39:51','2014-01-24 19:39:51','2014-01-26 01:11:31','2014-01-25 18:11:31',NULL,1,NULL,NULL,NULL,'v7hkHA','name2','last_name2','21/1',102,'0888888888','no','no',1,NULL),
+  (4,'root_project','io@ma.com',NULL,'$2a$12$Z6jPW4ulZBCV.AUum4/24O023vqBsWS/DGrSFQRCgGygowb0R0GNq',NULL,NULL,'mid-244518c3bd81eb23d956a01ec2eb360c.png',NULL,'UP7',NULL,'2014-01-25 18:06:39','2014-01-25 11:06:39','2014-01-26 01:20:36','2014-01-25 18:20:36',NULL,1,NULL,NULL,NULL,'5FA6Kc','name3','last_name3','21/1',102,'0888888888',NULL,NULL,2,NULL);
 
 /*!40000 ALTER TABLE `an_accounts` ENABLE KEYS */;
 UNLOCK TABLES;
@@ -281,7 +284,9 @@ LOCK TABLES `an_ci_sessions` WRITE;
 INSERT INTO `an_ci_sessions` (`session_id`, `ip_address`, `user_agent`, `last_activity`, `user_data`)
 VALUES
   ('0683ab33c9c9406b9769da09e3ea9706','127.0.0.1','Mozilla/5.0 (Macintosh; Intel Mac OS X 10.9; rv:26.0) Gecko/20100101 Firefox/26.0',1390674035,'a:1:{s:9:\"user_data\";s:0:\"\";}'),
-  ('39bba540efdd48b5432384b4697aac0c','127.0.0.1','Mozilla/5.0 (Macintosh; Intel Mac OS X 10.9; rv:26.0) Gecko/20100101 Firefox/26.0',1390648019,'a:1:{s:9:\"user_data\";s:0:\"\";}');
+  ('39bba540efdd48b5432384b4697aac0c','127.0.0.1','Mozilla/5.0 (Macintosh; Intel Mac OS X 10.9; rv:26.0) Gecko/20100101 Firefox/26.0',1390648019,'a:1:{s:9:\"user_data\";s:0:\"\";}'),
+  ('86b790da3b834710ebb1cfb3cc99071d','127.0.0.1','Mozilla/5.0 (Macintosh; Intel Mac OS X 10.9; rv:26.0) Gecko/20100101 Firefox/26.0',1390715105,'a:1:{s:9:\"user_data\";s:0:\"\";}'),
+  ('c3749ee6b344c28f6ace87f0fd784dc6','127.0.0.1','Mozilla/5.0 (Macintosh; Intel Mac OS X 10.9; rv:26.0) Gecko/20100101 Firefox/26.0',1390750172,'a:1:{s:9:\"user_data\";s:0:\"\";}');
 
 /*!40000 ALTER TABLE `an_ci_sessions` ENABLE KEYS */;
 UNLOCK TABLES;
@@ -482,9 +487,9 @@ VALUES
   (22,3,4),
   (23,3,5),
   (24,3,6),
-  (25,2,4),
-  (26,2,5),
-  (27,2,6);
+  (28,2,4),
+  (29,2,5),
+  (30,2,6);
 
 /*!40000 ALTER TABLE `an_job_ref_account` ENABLE KEYS */;
 UNLOCK TABLES;
@@ -722,7 +727,7 @@ CREATE TABLE `an_province` (
   `name_province` text COLLATE utf8_unicode_ci,
   `name_province_en` varchar(256) COLLATE utf8_unicode_ci NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 LOCK TABLES `an_province` WRITE;
 /*!40000 ALTER TABLE `an_province` DISABLE KEYS */;
@@ -1029,3 +1034,11 @@ CREATE TABLE `an_url_alias` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 
+
+
+/*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
+/*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
+/*!40014 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS */;
+/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
+/*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
+/*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;

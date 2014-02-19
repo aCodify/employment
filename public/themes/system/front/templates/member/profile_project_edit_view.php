@@ -60,6 +60,14 @@
 
 			<div class="box_input">
 				<div class="name_input">
+					ระยะเวลาการแสดง
+				</div> 
+				<input type="text" name="end_date" id="datepicker">
+
+			</div>
+
+			<div class="box_input">
+				<div class="name_input">
 					สถานะ
 				</div> 
 
@@ -88,6 +96,12 @@
 
 
 <script>
+
+	$(function() {
+
+		$( "#datepicker" ).datepicker( { dateFormat: 'dd/mm/yy' } );
+
+	});
 	
 	jQuery(document).ready(function($) {
 

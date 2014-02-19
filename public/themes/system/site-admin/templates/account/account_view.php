@@ -30,7 +30,7 @@
 				<th><?php echo anchor(current_url().'?'.generate_querystring_except(array('orders', 'sort', 'per_page')).'&amp;orders=account_create&amp;sort='.$sort, lang('account_registered_since')); ?></th>
 				<th><?php echo anchor(current_url().'?'.generate_querystring_except(array('orders', 'sort', 'per_page')).'&amp;orders=account_last_login&amp;sort='.$sort, lang('account_last_login')); ?></th>
 				<th><?php echo anchor(current_url().'?'.generate_querystring_except(array('orders', 'sort', 'per_page')).'&amp;orders=account_status&amp;sort='.$sort, lang('account_status')); ?></th>
-				<th></th>
+				<th>Action</th>
 			</tr>
 		</thead>
 		<tfoot>
@@ -43,7 +43,7 @@
 				<th><?php echo anchor(current_url().'?'.generate_querystring_except(array('orders', 'sort', 'per_page')).'&amp;orders=account_create&amp;sort='.$sort, lang('account_registered_since')); ?></th>
 				<th><?php echo anchor(current_url().'?'.generate_querystring_except(array('orders', 'sort', 'per_page')).'&amp;orders=account_last_login&amp;sort='.$sort, lang('account_last_login')); ?></th>
 				<th><?php echo anchor(current_url().'?'.generate_querystring_except(array('orders', 'sort', 'per_page')).'&amp;orders=account_status&amp;sort='.$sort, lang('account_status')); ?></th>
-				<th></th>
+				<th>Action</th>
 			</tr>
 		</tfoot>
 		<tbody>
@@ -53,18 +53,27 @@
 				<td class="check-column"><?php echo form_checkbox('id[]', $row->account_id); ?></td>
 				<td><?php echo $row->account_id; ?></td>
 				<td title="<?php echo htmlspecialchars($row->account_fullname); ?>">
-					<?php if ($row->account_avatar != null) {echo '<a href="'.$this->base_url.$row->account_avatar.'" target="_new"><img src="'.$this->base_url.$row->account_avatar.'" alt="avatar" class="list-item-avatar" /></a>';} ?>
+					<?php //if ($row->account_avatar != null) {echo '<a href="'.$this->base_url.$row->account_avatar.'" target="_new"><img src="'.$this->base_url.$row->account_avatar.'" alt="avatar" class="list-item-avatar" /></a>';} ?>
 					<?php echo htmlspecialchars($row->account_username); ?>
 				</td>
 				<td><?php echo $row->account_email; ?></td>
 				<td><?php echo $row->level_name; ?></td>
 				<td><?php echo gmt_date('', $row->account_create_gmt, $row->account_timezone); ?></td>
 				<td><?php echo gmt_date('', $row->account_last_login_gmt, $row->account_timezone); ?></td>
-				<td><span class="ico-<?php echo ($row->account_status == '1' ? 'yes' : 'no'); ?>"></span> <?php if ($row->account_status == '0') {echo $row->account_status_text;} ?></td>
-				<td><?php if ($row->account_id !== '0'): ?>
-					<?php echo anchor('site-admin/account/edit/'.$row->account_id, lang('admin_edit')); ?> 
-					| <?php echo anchor('site-admin/account/viewlog/'.$row->account_id, lang('account_view_logins')); ?> 
-				<?php endif; ?></td>
+				<td>
+					<?php if ($row->account_status == '0') {echo $row->account_status_text;}else{ echo $status = ($row->account_status == '1' ? 'ON' : 'OFF'); } ?>
+				</td>
+				<td>
+
+				<?php if ($row->account_id !== '0'): ?>
+
+					<?php $status = ($row->account_status == '2' ? 'on' : 'off'); ?>
+	
+					<?php echo anchor('site-admin/account/'.$status.'/'.$row->account_id, strtoupper($status) ); ?> 
+					
+				<?php endif; ?>
+
+				</td>
 			</tr>
 		<?php endforeach; ?> 
 		<?php else: ?> 

@@ -4,23 +4,27 @@
 		<thead>
 			<tr>
 				<th>Project</th>
-				<th>Manager</th>
-				<th>Phone</th>
-				<th>Time line ( date )</th>
+				<th>ผู้ว่าจ้าง</th>
+				<th>ประเภทงาน</th>
+				<th>งบประมาณ</th>
+				<th>จังหวัด</th>
+				<th>ระยะเวลา</th>
 			</tr>
 		</thead>
 		<tbody>
 
-			<?php for ( $i=0; $i < 15; $i++ ) 
-			{ ?>
+				<?php foreach ( $data_list as $key => $value ): ?>
+					
 				<tr>
-					<td><a href="<?php echo site_url( 'index/profile_project/'.$i ) ?>">Project <?php echo $i ?></a></td>
-					<td><a href="<?php echo site_url( 'index/profile_project/'.$i ) ?>">Ms. Joney Loyas</a></td>
-					<td><a href="<?php echo site_url( 'index/profile_project/'.$i ) ?>">0888888888</a></td>
-					<td><a href="<?php echo site_url( 'index/profile_project/'.$i ) ?>">30 date</a></td>
+					<td><a href="<?php echo site_url( 'index/profile_project/'.$value->id ) ?>"><?php echo $value->project_name ?></a></td>
+					<td><a href="<?php echo site_url( 'index/profile_project/'.$value->id ) ?>"><?php echo $value->name .' '.$value->last_name ?></a></td>
+					<td><a href="<?php echo site_url( 'index/profile_project/'.$value->id ) ?>"><?php echo $value->name_job ?></a></td>
+					<td><a href="<?php echo site_url( 'index/profile_project/'.$value->id ) ?>"><?php echo $value->price ?></a></td>
+					<td><a href="<?php echo site_url( 'index/profile_project/'.$value->id ) ?>"><?php echo $value->name_province ?></a></td>
+					<td><a href="<?php echo site_url( 'index/profile_project/'.$value->id ) ?>"><?php echo $value->long_term ?></a></td>
 				</tr>
-				
-			<?php } ?>
+
+				<?php endforeach ?>
 
 		</tbody>
 	</table>
@@ -39,10 +43,12 @@ jQuery(document).ready(function($) {
 var oTable_project = $('.dataTable-project-home').dataTable(
 	{
 		"aoColumns": [
-					        { "sWidth": "30%" },
-					        { "sWidth": "30%" },
-					        { "sWidth": "15%" },
-					        { "sWidth": "25%" }
+					        { "sWidth": "25%" },
+					        { "sWidth": "20%" },
+					        { "sWidth": "10%" },
+					        { "sWidth": "25%" },
+					        { "sWidth": "10%" },
+					        { "sWidth": "15%" }
 						],
 		"aaSorting": [[ 0, "asc" ]],
 		"sPaginationType" : "full_numbers",

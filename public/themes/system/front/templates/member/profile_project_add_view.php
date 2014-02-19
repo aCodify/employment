@@ -41,7 +41,14 @@
 
 			<div class="box_input">
 				<div class="name_input">
-					ระยะเวลา
+					ระยะเวลาในการทำงาน
+				</div> 
+				<input class="span5" type="text" name="long_term">
+			</div>
+
+			<div class="box_input">
+				<div class="name_input">
+					ระยะเวลาการแสดง
 				</div> 
 				<input class="span5" type="text" name="long_term">
 			</div>

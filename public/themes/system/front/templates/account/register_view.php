@@ -89,6 +89,16 @@
 				<textarea name="address" rows="3" name="" class="span6" style="margin-bottom: 0;"><?php echo $retVal = ( ! empty( $show_data['address'] ) ) ? $show_data['address'] : '' ; ?></textarea>
 			</div>
 
+
+			<?php if ( $this->input->get( 'type' ) == 2 ): ?>
+			<div class="box_input">
+				<div class="name_input">
+					Google Map
+				</div> 	
+				<textarea name="google_code" rows="3" name="" class="span6" style="margin-bottom: 0;"><?php echo $retVal = ( ! empty( $show_data['google_code'] ) ) ? $show_data['google_code'] : '' ; ?></textarea>
+			</div>	
+			<?php endif ?>
+
 			<div class="box_input">
 				<div class="name_input">
 					จังหวัด 	

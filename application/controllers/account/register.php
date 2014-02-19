@@ -140,6 +140,49 @@ class register extends MY_Controller
 							$output['form_status'] = 'success';
 							$output['form_status_message'] = $this->lang->line('account_registered_wait_admin_mod');
 						}
+
+
+
+
+						/**
+						*
+						*** START SET SENT EMAIL	
+						*
+						**/
+						require_once( APPPATH.'libraries/phpmailer/class.phpmailer.php' );
+
+						$mail 				 = new PHPMailer();
+						$mail->CharSet 		 = 'UTF-8';
+						$body = '';
+				    	$body .= '<h4>คุณได้ทำการสมัครกับเว็บไซต์ '.site_url().'</h4><br>';
+				    	$body .= '<b>โดยสามารถเข้าไปยืนยันการใช้งานได้ที่</b> <br> <br>';
+				    	$body .= site_url( 'index/register_email/'. rawurlencode( $data['account_email'] ) );
+				 
+						$mail->IsSMTP(); // telling the class to use SMTP
+						$mail->SMTPAuth   = true; 
+						$mail->SMTPSecure = "tls";                 // enable SMTP authentication
+						$mail->Host       = "smtp.gmail.com"; 
+						$mail->Port       = 587;                   // set the SMTP port for the GMAIL server			
+						$mail->Username = 'phpmailer101@gmail.com';
+						$mail->Password = 'RFVujm123@';
+						
+						$email_from = 'contact@domain.com'; 
+						$from_name = 'System-Contact';
+						$mail->SetFrom( $email_from , $from_name );
+						$mail->Subject  = 'System Reset Password';
+						$mail->MsgHTML( $body );
+						$mail->AddAddress( $data['account_email'] );
+						
+						if(!$mail->Send()) 
+						{
+						  	// $this->data['error_sent_mail'] = $this->language->get( 'error_sent_mail' );
+						} 
+
+						/** END SET SENT EMAIL	 **/
+
+
+
+
 					} else {
 						$output['form_status'] = 'error';
 						$output['form_status_message'] = $result;

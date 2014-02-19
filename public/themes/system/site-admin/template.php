@@ -5,7 +5,7 @@
 			
 			
 			<div class="header">
-				<div class="cms-logo"><img src="<?php echo $this->theme_path; ?>site-admin/images/logo.png" alt="Agni CMS" /></div>
+				<!-- <div class="cms-logo"><img src="<?php echo $this->theme_path; ?>site-admin/images/logo.png" alt="Agni CMS" /></div> -->
 				<div class="site-name"><?php echo $this->config_model->loadSingle('site_name'); ?></div>
 				<div class="user">
 					<?php if (!isset($cookie)) {
@@ -25,8 +25,8 @@
 					<?php // load helper
 					$this->load->helper('account'); 
 					?> 
-					<ul class="primary sf-menu">
-						<li><?php echo anchor('#', lang('admin_nav_website'), array('onclick' => 'return false;')); ?> 
+					<ul class="primary sf-menu" >
+						<li class="display_none" ><?php echo anchor('#', lang('admin_nav_website'), array('onclick' => 'return false;')); ?> 
 							<ul>
 								<li>
 									<?php echo anchor('site-admin', lang('admin_home')); ?> 
@@ -63,7 +63,7 @@
 								</li>
 							</ul>
 						</li>
-						<li><?php echo anchor('#', lang('admin_nav_users_roles_and_permssions'), array('onclick' => 'return false;')); ?> 
+						<li class="display_none"><?php echo anchor('#', lang('admin_nav_users_roles_and_permssions'), array('onclick' => 'return false;')); ?> 
 							<ul>
 								<?php if (check_admin_permission('account_perm', 'account_manage_perm')): ?><li><?php echo anchor('site-admin/account', lang('admin_nav_users')); ?></li><?php endif; ?> 
 								<?php if (check_admin_permission('account_perm', 'account_add_perm')): ?><li><?php echo anchor('site-admin/account/add', lang('admin_nav_add_user')); ?></li><?php endif; ?> 
@@ -76,7 +76,7 @@
 								</li><?php endif; ?> 
 							</ul>
 						</li>
-						<li><?php echo anchor('#', lang('admin_nav_content'), array('onclick' => 'return false;')); ?> 
+						<li class="display_none" ><?php echo anchor('#', lang('admin_nav_content'), array('onclick' => 'return false;')); ?> 
 							<ul>
 								<?php if (check_admin_permission('category_perm', 'category_viewall_perm')): ?> 
 								<li><?php echo anchor('site-admin/category', lang('admin_nav_categories')); ?> 
@@ -126,17 +126,17 @@
 							</ul>
 						</li>
 						<?php if (check_admin_permission('menu_perm', 'menu_viewall_group_perm') || check_admin_permission('block_perm', 'block_viewall_perm')): ?>
-						<li><?php echo anchor('#', lang('admin_nav_menuandblock'), array('onclick' => 'return false;')); ?>
+						<li class="display_none" ><?php echo anchor('#', lang('admin_nav_menuandblock'), array('onclick' => 'return false;')); ?>
 							<ul>
 								<?php if (check_admin_permission('menu_perm', 'menu_viewall_group_perm')): ?><li><?php echo anchor('site-admin/menu', lang('admin_nav_menu')); ?></li><?php endif; ?> 
 								<?php if (check_admin_permission('block_perm', 'block_viewall_perm')): ?><li><?php echo anchor('site-admin/block', lang('admin_nav_block')); ?></li><?php endif; ?> 
 							</ul>
 						</li>
 						<?php endif; ?> 
-						<li><?php echo anchor('#', lang('admin_nav_component'), array('onclick' => 'return false;')); ?> 
+						<li class="display_none" ><?php echo anchor('#', lang('admin_nav_component'), array('onclick' => 'return false;')); ?> 
 							<?php echo $this->modules_model->loadAdminNav(); ?> 
 						</li>
-						<li><?php echo anchor('#', lang('admin_nav_extensions'), array('onclick' => 'return false;')); ?> 
+						<li class="display_none" ><?php echo anchor('#', lang('admin_nav_extensions'), array('onclick' => 'return false;')); ?> 
 							<?php if (check_admin_permission('modules_manage_perm', 'modules_viewall_perm') || check_admin_permission('themes_manage_perm', 'themes_viewall_perm') || check_admin_permission('siteman_perm', 'siteman_manage_perm')): ?> 
 							<ul>
 								<?php if (check_admin_permission('modules_manage_perm', 'modules_viewall_perm')): ?><li><?php echo anchor('site-admin/module', lang('admin_nav_modules_manager')); ?></li><?php endif; ?> 

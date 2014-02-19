@@ -9,6 +9,7 @@
  *
  */
 
+
 class index extends MY_Controller 
 {
 	
@@ -29,6 +30,7 @@ class index extends MY_Controller
 		
 		// load language
 		$this->lang->load('post');
+	
 	}// __construct
 	
 	
@@ -128,16 +130,51 @@ class index extends MY_Controller
 		$query = $this->db->get();
 		$output['data_project'] = $query->result();
 
+		foreach ( $output['data_project'] as $key => $value ) 
+		{
+			$this->db->where( 'project_id', $value->id );
+			$query = $this->db->get( 'project_ref_job' );
+			$data = $query->result();
+
+			$data_array = array();
+
+			foreach ( $data as $key_info => $value_info ) 
+			{
+				$this->db->where( 'id', $value_info->id_job );
+				$query = $this->db->get( 'job' );
+				$data_name = $query->row();
+
+				$data_array[] = $data_name->name_job;
+			}
+
+			if ( ! empty( $data_array ) ) 
+			{
+				$data_array = implode( ',' , $data_array );
+			}
+			else
+			{
+
+				$data_array = '';
+			
+			}
+		
+
+			$output['data_project'][$key]->name_job = $data_array;
+
+			$this->db->where( 'id', $value->province );
+			$query = $this->db->get( 'province' );
+			$data = $query->row();
+
+			$output['data_project'][$key]->name_province = $data->name_province;
+			
+		}
+
+
 
 		// GET DATA FREELANCE
 		$this->db->where( 'type', 1 );
 		$query = $this->db->get( 'accounts' );
 		$output['data_freelance'] = $query->result();
-
-
-
-
-
 
 
 
@@ -272,6 +309,61 @@ class index extends MY_Controller
 		// SET VALUE 
 		$output = '';
 
+
+
+		if ( $this->input->post('email') ) 
+		{
+
+			$email = $this->input->post('email');
+
+
+			$new_password = number_rand( 4 );
+			$data['account_password'] = $this->encryptPassword( $new_password );
+			$this->db->where( 'account_email', $email );
+			$this->db->update( 'accounts', $data );
+
+			/**
+			*
+			*** START SET SENT EMAIL	
+			*
+			**/
+			require_once( APPPATH.'libraries/phpmailer/class.phpmailer.php' );
+
+			$mail 				 = new PHPMailer();
+			$mail->CharSet 		 = 'UTF-8';
+			$body = '';
+	    	$body .= '<h4>คุณได้ทำการร้องขอ ข้อมูล Password ใหม่ โดย Password ใหม่ของคุณคือ</h4><br>';
+	    	$body .= '<b>Password : '.$new_password.'</b> <br> <br>';
+	    	$body .= 'คุณสามารถเข้าไป login ได้ที่ '. site_url();
+	 
+			$mail->IsSMTP(); // telling the class to use SMTP
+			$mail->SMTPAuth   = true; 
+			$mail->SMTPSecure = "tls";                 // enable SMTP authentication
+			$mail->Host       = "smtp.gmail.com"; 
+			$mail->Port       = 587;                   // set the SMTP port for the GMAIL server			
+			$mail->Username = 'phpmailer101@gmail.com';
+			$mail->Password = 'RFVujm123@';
+			
+			$email_from = 'contact@domain.com'; 
+			$from_name = 'System-Contact';
+			$mail->SetFrom( $email_from , $from_name );
+			$mail->Subject  = 'System Reset Password';
+			$mail->MsgHTML( $body );
+			$mail->AddAddress( $email );
+			
+			if(!$mail->Send()) 
+			{
+			  	// $this->data['error_sent_mail'] = $this->language->get( 'error_sent_mail' );
+			} 
+
+			/** END SET SENT EMAIL	 **/
+
+			$output['success'] = 'ได้ทำการส่ง Password ใหม่ไปยัง อีเมล์ของคุณแล้ว';
+
+		}
+
+
+
 		$this->generate_page('front/templates/account/call_forget_password_view', $output);
 	}
 
@@ -281,6 +373,13 @@ class index extends MY_Controller
 		// SET VALUE 
 		$output = '';
 
+		$this->db->where( 'type', 2 );
+		$this->db->where( 'account_status', 1 );
+		$query = $this->db->get( 'accounts' );
+		$data = $query->result();
+		$output['data_list'] = $data;
+
+
 		$this->generate_page('front/templates/job/freelance_view', $output);
 	}
 
@@ -288,6 +387,59 @@ class index extends MY_Controller
 	{
 		// SET VALUE 
 		$output = '';
+
+		// GET DATA PROJECT
+		$this->db->from( 'project AS p' );
+		$this->db->join( 'accounts AS a', 'p.account_id = a.account_id', 'left' );
+		$this->db->order_by( 'p.id', 'desc' );
+
+
+		$this->db->where( ' ( p.end_date > '. strtotime( 'now' ) . 
+		                  ' OR p.end_date = 0 ) ', false , false );
+
+
+		$query = $this->db->get();
+		$output['data_list'] = $query->result();
+
+
+		foreach ( $output['data_list'] as $key => $value ) 
+		{
+			$this->db->where( 'project_id', $value->id );
+			$query = $this->db->get( 'project_ref_job' );
+			$data = $query->result();
+
+			$data_array = array();
+
+			foreach ( $data as $key_info => $value_info ) 
+			{
+				$this->db->where( 'id', $value_info->id_job );
+				$query = $this->db->get( 'job' );
+				$data_name = $query->row();
+
+				$data_array[] = $data_name->name_job;
+			}
+
+			if ( ! empty( $data_array ) ) 
+			{
+				$data_array = implode( ',' , $data_array );
+			}
+			else
+			{
+
+				$data_array = '';
+			
+			}
+		
+
+			$output['data_list'][$key]->name_job = $data_array;
+
+			$this->db->where( 'id', $value->province );
+			$query = $this->db->get( 'province' );
+			$data = $query->row();
+
+			$output['data_list'][$key]->name_province = $data->name_province;
+			
+		}
 
 		$this->generate_page('front/templates/job/principal_view', $output);
 	}
@@ -342,6 +494,57 @@ class index extends MY_Controller
 		if ( empty( $id ) ) 
 		{
 			redirect( site_url() );
+		}
+
+		$account_data = $this->account_model->get_account_cookie( 'member' );
+
+		if ( ! empty( $account_data ) ) 
+		{
+			$this->db->where( 'account_id', $account_data['id'] );
+			$query = $this->db->get( 'accounts' );
+			$account_data = $query->row();
+
+
+			$this->db->where( 'account_id', $account_data->account_id );
+			$query = $this->db->get( 'project' );
+			$data_project = $query->result();
+		}
+
+
+		if ( ! empty( $data_project ) ) 
+		{
+			$output['this_project'] = true;
+		}
+		else
+		{
+			$output['this_project'] = false;
+		}
+
+		if ( $this->input->post() ) 
+		{
+
+			$this->db->set( 'account_id', $account_data->account_id );
+			$this->db->set( 'ref_project_id', $id );
+			$this->db->set( 'detail', $this->input->post('detail') );
+			$this->db->set( 'price', $this->input->post('price') );
+			$this->db->insert( 'project_log_price' );
+
+		}
+
+
+		$this->db->where( 'ref_project_id', $id );
+		$query = $this->db->get( 'project_log_price' );
+		$output['project_log_price'] = $query->result();
+
+		foreach ( $output['project_log_price'] as $key => $value ) 
+		{
+			$this->db->select( 'name' );
+			$this->db->where( 'account_id', $value->account_id );
+			$query = $this->db->get( 'accounts' );
+			$data = $query->row();
+
+			$output['project_log_price'][$key]->name_account = $data->name;
+
 		}
 
 
@@ -715,6 +918,7 @@ class index extends MY_Controller
 		{
 			$data_post = $this->input->post();
 
+		
 			// load form validation
 			$this->load->library('form_validation');
 			$this->form_validation->set_rules('project_name', 'lang:ชื่อโปรเจค', 'trim|required|xss_clean|min_length[1]');
@@ -739,6 +943,8 @@ class index extends MY_Controller
 				unset( $data_post['name_job'] );
 
 				$data_post['create_date'] = time();
+
+				$data_post['end_date'] = strtotime(reset_format_date($data_post['end_date']));
 
 				$this->db->where( 'id', $id );
 				$this->db->update( 'project', $data_post );
@@ -772,6 +978,35 @@ class index extends MY_Controller
 
 
 
+
+	public function register_email( $email = '' )
+	{
+
+		$output = '';
+		$email = rawurldecode($email);
+
+		$this->db->where( 'account_email', $email );
+		$query = $this->db->get( 'accounts' );
+		$data = $query->row();
+
+		if ( ! empty( $data ) ) 
+		{
+			$this->db->where( 'account_email', $email );
+			$this->db->set( 'account_status', '1' );
+			$this->db->update( 'accounts' );
+			$output['status'] = 'คุณสามารถ login ด้วย Email: '. $email . ' ได้แล้ว';
+		}
+		else
+		{
+			$output['status'] = 'ไม่มี Email นี้อยู่ในระบบ';
+		}
+
+
+		$output['success'] = '';
+
+		$this->generate_page('front/templates/member/register_email_view', $output);
+	
+	} // END FUNCTION register_email
 
 
 

@@ -4,25 +4,27 @@
 		<thead>
 			<tr>
 				<th>Project</th>
-				<th>Manager</th>
-				<th>Phone</th>
-				<th>Time line ( date )</th>
+				<th>ผู้ว่าจ้าง</th>
+				<th>ประเภทงาน</th>
+				<th>งบประมาณ</th>
+				<th>จังหวัด</th>
+				<th>ระยะเวลา</th>
 			</tr>
 		</thead>
 		<tbody>
-			
+
 				<?php foreach ( $data_project as $key => $value ): ?>
 					
 				<tr>
 					<td><a href="<?php echo site_url( 'index/profile_project/'.$value->id ) ?>"><?php echo $value->project_name ?></a></td>
 					<td><a href="<?php echo site_url( 'index/profile_project/'.$value->id ) ?>"><?php echo $value->name .' '.$value->last_name ?></a></td>
-					<td><a href="<?php echo site_url( 'index/profile_project/'.$value->id ) ?>"><?php echo $value->phone ?></a></td>
+					<td><a href="<?php echo site_url( 'index/profile_project/'.$value->id ) ?>"><?php echo $value->name_job ?></a></td>
+					<td><a href="<?php echo site_url( 'index/profile_project/'.$value->id ) ?>"><?php echo $value->price ?></a></td>
+					<td><a href="<?php echo site_url( 'index/profile_project/'.$value->id ) ?>"><?php echo $value->name_province ?></a></td>
 					<td><a href="<?php echo site_url( 'index/profile_project/'.$value->id ) ?>"><?php echo $value->long_term ?></a></td>
 				</tr>
 
-				<?php endforeach ?>
-				
-
+				<?php endforeach ?>			
 
 		</tbody>
 	</table>
@@ -45,8 +47,7 @@
 		</thead>
 		<tbody>
 
-			<?php foreach ( $data_freelance as $key => $value ): ?>
-				
+			<?php foreach ( $data_freelance as $key => $value ): ?>				
 
 				<?php  
 				$this->db->from( 'job_ref_account AS jra' );
@@ -54,6 +55,7 @@
 				$this->db->where( 'jra.id_account', $value->account_id );
 				$query = $this->db->get();
 				$data_job = $query->result();
+
 				$job = array();
 				foreach ( $data_job as $key_job => $value_job ) 
 				{

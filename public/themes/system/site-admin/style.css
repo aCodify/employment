@@ -678,3 +678,8 @@ html, body {height: 100%;}
 }
 
 
+.display_none
+{
+	display: none;
+}
+

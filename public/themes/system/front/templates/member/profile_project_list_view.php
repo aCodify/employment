@@ -66,6 +66,7 @@ var oTable_project = $('.dataTable-project-home').dataTable(
 		"aoColumns": [
 					        { "sWidth": "30%" },
 					        { "sWidth": "30%" },
+					        { "sWidth": "30%" },
 					        { "sWidth": "25%" }
 						],
 		"aaSorting": [[ 0, "asc" ]],

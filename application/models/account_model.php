@@ -1199,6 +1199,8 @@ class account_model extends CI_Model
 			$this->db->like_group($like_data);
 			unset($like_data);
 		}
+		$this->db->where( 'accounts.account_id !=', 0 );
+		$this->db->where( 'accounts.account_id !=', 1 );
 		$this->db->group_by('accounts.account_id');
 		
 		// order and sort
@@ -1692,7 +1694,7 @@ class account_model extends CI_Model
 		$data['account_password'] = $this->encryptPassword($data['account_password']);
 		$data['account_create'] = date('Y-m-d H:i:s', time());
 		$data['account_create_gmt'] = date('Y-m-d H:i:s', local_to_gmt(time()));
-		$data['account_status'] = '1';
+		$data['account_status'] = '0';
 		if ($this->config_model->loadSingle('member_verification') == '2') {
 			$data['account_status_text'] = 'Waiting for admin verification.';
 		}

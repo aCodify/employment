@@ -420,5 +420,49 @@ class account extends admin_controller
 	}// viewlog
 	
 
+
+	public function on( $id = '' )
+	{
+	
+		$this->db->where( 'account_id', $id );
+		$this->db->set( 'account_status', '1' );
+		$this->db->update( 'accounts' );
+
+		// load session library
+		$this->load->library('session');
+		$this->session->set_flashdata(
+			'form_status',
+			array(
+				'form_status' => 'success',
+				'form_status_message' => $this->lang->line('admin_saved')
+			)
+		);
+		redirect('site-admin/account');
+
+	
+	} // END FUNCTION on
+
+	public function off( $id = '' )
+	{
+	
+		$this->db->where( 'account_id', $id );
+		$this->db->set( 'account_status', '2' );
+		$this->db->update( 'accounts' );
+
+		// load session library
+		$this->load->library('session');
+		$this->session->set_flashdata(
+			'form_status',
+			array(
+				'form_status' => 'success',
+				'form_status_message' => $this->lang->line('admin_saved')
+			)
+		);
+		redirect('site-admin/account');
+
+	
+	} // END FUNCTION off
+
+
 }
 

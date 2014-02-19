@@ -1,3 +1,19 @@
+<?php $account_data = $this->account_model->get_account_cookie( 'member' ) ?>
+
+<?php 
+if ( ! empty( $account_data ) ) 
+{
+	$this->db->where( 'account_id', $account_data['id'] );
+	$query = $this->db->get( 'accounts' );
+	$account_data = $query->row();
+
+	$this->db->where( 'id_account', $account_data->account_id );
+	$query = $this->db->get( 'job_ref_account' );
+	$account_job = $query->result();
+
+}
+?>
+
 <h2 class="set-header-profile" >Profile Project <?php echo $id = ( ! empty( $id ) ) ? $id : '' ; ?></h2>
 <blockquote class="profile-freelance">
 
@@ -26,10 +42,35 @@
 		<div class="name_input">
 			ทักษะในการทำงาน	
 		</div>
-		<ul style="padding-left: 8em;">
+		<ul style="padding-left: 10em;">
+
+			<?php  $ok_job = false;  ?>
+
 			<?php foreach ( $data_job as $key => $value ): ?>
-				
+
 				<li><?php echo $value->name_job ?></li>
+
+
+				<?php if ( ! empty( $account_data ) ): ?>
+						
+					<?php if ( ! empty( $account_job ) ): ?>
+						
+							<?php foreach ( $account_job as $key_job => $value_job ): ?>
+								
+								<?php if ( $value_job->id_job == $value->id ): ?>
+
+									 <?php  $ok_job = true;  ?>
+
+								<?php endif ?>
+								
+
+							<?php endforeach ?>
+	
+
+					<?php endif ?>
+
+				<?php endif ?>
+
 
 			<?php endforeach ?>
 		</ul>
@@ -72,39 +113,60 @@
 	</div>
 
 	<hr>
+	
+	<?php if ( ! empty( $account_data ) AND $ok_job ): ?>
+
+	<?php echo form_open('', ''); ?>
 
 	<div class="box_input">
 		<div class="name_input">
 			ลงทะเบียนเข้าร่วมการทำงาน
 		</div> 
-		<textarea placeholder="รายละเอียด" name="" rows="4"></textarea>
+		<textarea placeholder="รายละเอียด" name="detail" rows="4"></textarea>
+		<br>
+		<div class="name_input">
+			เสนอราคา
+		</div> 
+		<input class="span3" type="text" name="price" placeholder="เสนอราคา">
+		<br>
 		<br>
 		<div class="name_input">
 			&nbsp;
 		</div> 
-		<span class="btn" >ลงชื่อ</span>
+
+		<button class="btn" >ลงชื่อ</button>
 	</div>
+
+	<?php echo form_close(); ?>
+		
+	<?php else: ?>
+		
+		<span> Job ของคุณไม่อนุญาติให้เข้ารวม project นี้ </span>
+
+	<?php endif ?>
+
 
 	<hr style="border-color: rgb(149, 183, 201); border-width: 3px;">	
 
+	<?php foreach ( $project_log_price as $key => $value ): ?>
+		
 	<div class="box_input">
-		<div class="name_input">
+		<div class="name_input"  style="width: 3em;" >
 			คุณ
 		</div> 
-		: Josny ได้ลงชื่อขอทำงาน
+		: <?php echo $value->name_account ?> ได้ลงชื่อขอทำงาน
+
+		<?php if ( $this_project ): ?>
+			<br>
+			รายละเอียด : <?php echo $value->detail ?> ( เสนอราคา <?php echo $value->price ?> )
+
+		<?php endif ?>
+
+
+
 	</div>
-	<div class="box_input">
-		<div class="name_input">
-			คุณ
-		</div> 
-		: Zilla ได้ลงชื่อขอทำงาน
-	</div>
-	<div class="box_input">
-		<div class="name_input">
-			คุณ
-		</div> 
-		: Marl ได้ลงชื่อขอทำงาน
-	</div>
+
+	<?php endforeach ?>
 
 	<hr>
 

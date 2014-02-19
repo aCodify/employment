@@ -23,11 +23,12 @@
         <script type="text/javascript" src="<?php echo $this->theme_path; ?>share-js/jquery-ui/jquery-ui.min.js"></script>
 
         <!-- main style -->
+        <link rel="stylesheet" type="text/css" href="<?php echo $this->theme_path; ?>share-js/jquery-ui/css/smoothness/jquery-ui.css" />        
         <link rel="stylesheet" type="text/css" href="<?php echo $this->theme_path; ?>share-css/bootstrap/css/bootstrap.min.css" />
         <link rel="stylesheet" type="text/css" href="<?php echo $this->theme_path; ?>share-css/bootstrap/css/bootstrap-responsive.min.css" />
         <script type="text/javascript" src="<?php echo $this->theme_path; ?>share-css/bootstrap/js/bootstrap.min.js"></script>
         <link rel="stylesheet" type="text/css" href="<?php echo $this->theme_path; ?>share-css/style_snipt.css" /> 
-        <link rel="stylesheet" type="text/css" href="<?php echo $this->theme_path; ?>share-css/style_less.css" />        
+        <link rel="stylesheet" type="text/css" href="<?php echo $this->theme_path; ?>share-css/style_less.css" /> 
 
 
         <script type="text/javascript" src="<?php echo $this->theme_path; ?>share-js/ajaxupload.js"></script>

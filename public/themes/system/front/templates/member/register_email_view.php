@@ -1,0 +1,1 @@
+<span> <?php echo $status = ( ! empty( $status ) ) ? $status : '' ; ?> </span>

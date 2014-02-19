@@ -37,6 +37,8 @@ class index extends admin_controller
 		// script tags
 		// end head tags output ##############################
 		
+		redirect( site_url( 'site-admin/account' ) );	
+
 		// output
 		$this->generate_page('site-admin/templates/index/index_view', $output);
 	}// index

@@ -10,15 +10,30 @@
 		</thead>
 		<tbody>
 
-			<?php for ( $i=0; $i < 100; $i++ ) 
-			{ ?>
+			<?php foreach ( $data_list as $key => $value ): ?>				
+
+				<?php  
+				$this->db->from( 'job_ref_account AS jra' );
+				$this->db->join( 'job AS j', 'jra.id_job = j.id', 'left' );
+				$this->db->where( 'jra.id_account', $value->account_id );
+				$query = $this->db->get();
+				$data_job = $query->result();
+
+				$job = array();
+				foreach ( $data_job as $key_job => $value_job ) 
+				{
+					$job[] = $value_job->name_job;
+				}
+				$job = implode( ' , ', $job);
+				?>
+
 				<tr>
-					<td>Zill<?php echo $i ?> </td>
-					<td>Programmer</td>
-					<td>0888888888</td>
+					<td><a href="<?php echo site_url( 'index/profile_freelance/'.$value->account_id ) ?>"><?php echo $value->name . ' ' .$value->last_name ?></a></td>
+					<td><a href="<?php echo site_url( 'index/profile_freelance/'.$value->account_id ) ?>"><?php echo $job = ( ! empty( $job ) ) ? $job : 'ไม่มีข้อมูล' ; ?></a></td>
+					<td><a href="<?php echo site_url( 'index/profile_freelance/'.$value->account_id ) ?>"><?php echo $phone = ( ! empty( $value->phone ) ) ? $value->phone : 'ไม่มีข้อมูล' ; ?></a></td>
 				</tr>
-				
-			<?php } ?>
+
+			<?php endforeach ?>
 
 		</tbody>
 	</table>

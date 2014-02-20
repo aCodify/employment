@@ -836,6 +836,17 @@ class index extends MY_Controller
 			{
 
 				$array_job = $data_post['name_job'];
+
+				$this->db->select( 'a.account_id , a.account_email , jra.id_job' );
+				$this->db->from( 'job_ref_account AS jra' );
+				$this->db->where_in( 'jra.id_job', $array_job );
+				$this->db->join( 'accounts AS a', 'a.account_id = jra.id_account', 'left' );
+				$this->db->where_in('a.type', 1);
+				$this->db->group_by( 'a.account_id' );
+				$query = $this->db->get();
+				$data_email_group = $query->result();
+
+
 				unset( $data_post['name_job'] );
 
 				$data_post['create_date'] = time();
@@ -855,13 +866,57 @@ class index extends MY_Controller
 					}
 				}
 
+				if ( ! empty( $data_email_group ) ) 
+				{
+	
+					/**
+					*
+					*** START SET SENT EMAIL	
+					*
+					**/
+					require_once( APPPATH.'libraries/phpmailer/class.phpmailer.php' );
+
+					$mail 				 = new PHPMailer();
+					$mail->CharSet 		 = 'UTF-8';
+					$body = '';
+			    	$body .= '<h4>ได้มีการลงข้อมูล Project ใหม่</h4><br>';
+			    	$body .= '<b>คุณสามารถเข้าไปดูได้ที่</b> <br> <br>';
+			    	$body .= site_url( 'index/profile_project/'.$id_project );
+			 
+					$mail->IsSMTP(); // telling the class to use SMTP
+					$mail->SMTPAuth   = true; 
+					$mail->SMTPSecure = "tls";                 // enable SMTP authentication
+					$mail->Host       = "smtp.gmail.com"; 
+					$mail->Port       = 587;                   // set the SMTP port for the GMAIL server			
+					$mail->Username = 'phpmailer101@gmail.com';
+					$mail->Password = 'RFVujm123@';
+					
+					$email_from = 'contact@domain.com'; 
+					$from_name = 'System-Contact';
+					$mail->SetFrom( $email_from , $from_name );
+					$mail->Subject  = 'System Reset Password';
+					$mail->MsgHTML( $body );
+
+					foreach ( $data_email_group as $key => $value ) 
+					{
+						$mail->AddAddress( $value->account_email );
+					}
+
+					
+					if(!$mail->Send()) 
+					{
+					  	// $this->data['error_sent_mail'] = $this->language->get( 'error_sent_mail' );
+					} 
+
+					/** END SET SENT EMAIL	 **/
+
+				}
+
 				redirect( 'index/project' );
 
 			}
 
 		}
-
-
 
 		$this->generate_page('front/templates/member/profile_project_add_view', $output);
 	

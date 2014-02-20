@@ -100,6 +100,13 @@ if ( ! empty( $account_data ) )
 
 	<div class="box_input">
 		<div class="name_input">
+			Google Map 	
+		</div>
+		: <?php echo $show_data->google_code ?>
+	</div>
+
+	<div class="box_input">
+		<div class="name_input">
 			Phone
 		</div> 
 		: <?php echo $show_data->phone ?>

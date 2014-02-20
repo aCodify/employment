@@ -34,7 +34,9 @@
 				</div>
 				<span style="display: table; padding-left: 0em;">
 					<?php foreach ( $job as $key => $value ): ?>
-						<input name="name_job[]" value="<?php echo $value->id ?>" type="checkbox">&nbsp; <?php echo $value->name_job ?> <br>
+						<label>
+							<input name="name_job[]" value="<?php echo $value->id ?>" type="checkbox">&nbsp; <?php echo $value->name_job ?> <br>
+						</label>
 					<?php endforeach ?>
 				</span>
 			</div>
@@ -43,14 +45,15 @@
 				<div class="name_input">
 					ระยะเวลาในการทำงาน
 				</div> 
-				<input class="span5" type="text" name="long_term">
+				<input class="span5 datepicker" type="text" name="long_term">
 			</div>
 
 			<div class="box_input">
 				<div class="name_input">
 					ระยะเวลาการแสดง
 				</div> 
-				<input class="span5" type="text" name="long_term">
+				<input type="text" name="end_date" id="datepicker">
+
 			</div>
 
 			<div class="box_input">
@@ -77,32 +80,39 @@
 	
 	jQuery(document).ready(function($) {
 
-	// Set fieldname
-	$.ajaxUploadSettings.name = 'uploadfile';
-	// Set promptzone
-	$('#upload_img').ajaxUploadPrompt({
-		url : '<?php echo base_url() ?>upload.php?info=img_cover',
-		error : function () 
-		{
-			alert( 'upload error please try again' )
-		},
-		success : function (data) 
-		{
-			name_old = $('.cover_img_name').val();
-			
-			if ( name_old != '' ) 
+		$(function() {
+
+			$( "#datepicker" ).datepicker( { dateFormat: 'dd/mm/yy' } );
+
+		});
+
+
+		// Set fieldname
+		$.ajaxUploadSettings.name = 'uploadfile';
+		// Set promptzone
+		$('#upload_img').ajaxUploadPrompt({
+			url : '<?php echo base_url() ?>upload.php?info=img_cover',
+			error : function () 
 			{
+				alert( 'upload error please try again' )
+			},
+			success : function (data) 
+			{
+				name_old = $('.cover_img_name').val();
+				
+				if ( name_old != '' ) 
+				{
 
-			};
-			console.log(data);
-			data = JSON.parse( data );
-			$('.cover-img-tmp').attr( 'src' , '<?php echo base_url( "public/upload/img_cover" ) ?>/'+data.name_filemid ); 
-			$('.cover_img_name').val( data.name_filemid );
+				};
+				console.log(data);
+				data = JSON.parse( data );
+				$('.cover-img-tmp').attr( 'src' , '<?php echo base_url( "public/upload/img_cover" ) ?>/'+data.name_filemid ); 
+				$('.cover_img_name').val( data.name_filemid );
 
-		}
+			}
+		});
+
 	});
-
-});
 
 
 

@@ -62,7 +62,7 @@
 				<div class="name_input">
 					ระยะเวลาการแสดง
 				</div> 
-				<input type="text" name="end_date" id="datepicker">
+				<input type="text" name="end_date" id="datepicker" value="<?php echo date( 'd/m/Y' , $show_data->end_date ) ?>">
 
 			</div>
 

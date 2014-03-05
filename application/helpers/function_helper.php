@@ -247,6 +247,12 @@ function delete_success()
 **/
 function reset_format_date( $date = '' , $info_old = '/' , $info_new = '-' , $format_old = 'd-m-y' , $format_new = 'y-m-d' ) 
 {
+
+	if ( empty( $date ) ) 
+	{
+		return 0;
+	}
+
 	$array_date = explode( $info_old , $date );
 
 	$format_old = explode( '-' , $format_old );

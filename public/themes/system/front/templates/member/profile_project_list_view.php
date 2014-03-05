@@ -8,6 +8,7 @@
 				<th>Project</th>
 				<th>Post Date</th>
 				<th>จำนวนผู้มาติดต่อ</th>
+				<th>ดูข้อมูล</th>
 				<th>สถานนะ</th>
 
 			</tr>
@@ -18,6 +19,7 @@
 						<td><a href="<?php echo site_url( 'index/edit_project/'.$value->id ) ?>"><?php echo $value->project_name ?></a></td>
 						<td><a href="<?php echo site_url( 'index/edit_project/'.$value->id ) ?>"><?php echo date("d-M-Y" , $value->create_date); ?></a></td>
 						<td><a href="<?php echo site_url( 'index/edit_project/'.$value->id ) ?>"><?php echo $value->count_countact ?></a></td>
+						<td><a href="<?php echo site_url( 'index/profile_project/'.$value->id ) ?>">Comment</a></td>
 						<td>
 											
 						<?php  
@@ -66,7 +68,8 @@ var oTable_project = $('.dataTable-project-home').dataTable(
 		"aoColumns": [
 					        { "sWidth": "30%" },
 					        { "sWidth": "30%" },
-					        { "sWidth": "30%" },
+					        { "sWidth": "20%" },
+					        { "sWidth": "10%" },
 					        { "sWidth": "25%" }
 						],
 		"aaSorting": [[ 0, "asc" ]],

@@ -13,6 +13,7 @@
 		</thead>
 		<tbody>
 
+
 				<?php foreach ( $data_project as $key => $value ): ?>
 					
 				<tr>
@@ -85,36 +86,38 @@
 jQuery(document).ready(function($) {
 	
 
-var oTable = $('.dataTable').dataTable(
-	{
-		"aoColumns": [
-					        { "sWidth": "35%" },
-					        { "sWidth": "35%" },
-					        { "sWidth": "30%" }
-						],
-		"aaSorting": [[ 0, "asc" ]],
-		"sPaginationType" : "full_numbers",
-		"iDisplayLength": 5
+	var oTable = $('.dataTable').dataTable(
+		{
+			"aoColumns": [
+						        { "sWidth": "35%" },
+						        { "sWidth": "35%" },
+						        { "sWidth": "30%" }
+							],
+			"aaSorting": [[ 0, "asc" ]],
+			"sPaginationType" : "full_numbers",
+			"iDisplayLength": 5
+		});
+
+
+
+
+
+
+	var oTable_project = $('.dataTable-project-home').dataTable(
+		{
+			"aoColumns": [
+						        { "sWidth": "30%" },
+						        { "sWidth": "30%" },
+						        { "sWidth": "15%" },
+						        { "sWidth": "15%" },
+						        { "sWidth": "15%" },
+						        { "sWidth": "25%" }
+							],
+			"aaSorting": [[ 0, "asc" ]],
+			"sPaginationType" : "full_numbers",
+			"iDisplayLength": 5
+		});
+
 	});
-
-
-
-
-
-
-var oTable_project = $('.dataTable-project-home').dataTable(
-	{
-		"aoColumns": [
-					        { "sWidth": "30%" },
-					        { "sWidth": "30%" },
-					        { "sWidth": "15%" },
-					        { "sWidth": "25%" }
-						],
-		"aaSorting": [[ 0, "asc" ]],
-		"sPaginationType" : "full_numbers",
-		"iDisplayLength": 5
-	});
-
-});
 
 </script>

@@ -127,6 +127,9 @@ class index extends MY_Controller
 		// GET DATA PROJECT
 		$this->db->from( 'project AS p' );
 		$this->db->join( 'accounts AS a', 'p.account_id = a.account_id', 'left' );
+		$this->db->where( ' ( p.end_date > '. strtotime( 'now' ) . 
+		                  ' OR p.end_date = 0 ) ', false , false );
+		
 		$query = $this->db->get();
 		$output['data_project'] = $query->result();
 
@@ -153,9 +156,7 @@ class index extends MY_Controller
 			}
 			else
 			{
-
 				$data_array = '';
-			
 			}
 		
 
@@ -176,8 +177,6 @@ class index extends MY_Controller
 		$query = $this->db->get( 'accounts' );
 		$output['data_freelance'] = $query->result();
 
-
-
 		// output
 		$this->generate_page('front/templates/index/index_view', $output);
 	}// index
@@ -185,6 +184,14 @@ class index extends MY_Controller
 
 	public function register( $info_page = 'home' )
 	{
+
+		$account_data = $this->account_model->get_account_cookie( 'member' );
+
+		if ( ! empty( $account_data ) ) 
+		{
+			redirect( site_url() );
+		}
+
 		// SET VALUE 
 		$output = '';
 
@@ -528,6 +535,11 @@ class index extends MY_Controller
 			$this->db->set( 'detail', $this->input->post('detail') );
 			$this->db->set( 'price', $this->input->post('price') );
 			$this->db->insert( 'project_log_price' );
+
+
+			$this->db->where( 'id', $id );
+			$this->db->set( 'count_countact', 'count_countact+1' , false );
+			$this->db->update( 'project' );
 
 		}
 

@@ -181,11 +181,19 @@
                                 <span class='set_name' >&nbsp;PASS : </span>
                                 <input name="account_password" data-placement="right" title='Please enter password' placeholder='password' type="password" class="span2 login">
                             </p>
-                            <button class="display_none">Login</button>
+
+                            <p style="margin-bottom: 12px;" >
+                                <!-- <span class="icon-circle-arrow-right"></span> -->
+                                <span class='set_name' >&nbsp;</span>
+                                <button class="over_login">Login</button>
+                            </p>
+                            
+
                             <p style="margin-bottom: 4px;" >
                                 <span class="icon-circle-arrow-right"></span>
                                 &nbsp;<a href="<?php echo site_url( 'index/forget_password' ) ?>">Forget Password </a> , <a href="<?php echo site_url( 'index/register' ) ?>">Register</a>
                             </p>
+
                         </section>
                         <?php echo form_close(); ?> 
                     <?php endif ?>

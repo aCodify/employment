@@ -129,7 +129,7 @@ class index extends MY_Controller
 		$this->db->join( 'accounts AS a', 'p.account_id = a.account_id', 'left' );
 		$this->db->where( ' ( p.end_date > '. strtotime( 'now' ) . 
 		                  ' OR p.end_date = 0 ) ', false , false );
-		
+		$this->db->where( 'a.account_status', 1 );
 		$query = $this->db->get();
 		$output['data_project'] = $query->result();
 
@@ -380,7 +380,7 @@ class index extends MY_Controller
 		// SET VALUE 
 		$output = '';
 
-		$this->db->where( 'type', 2 );
+		$this->db->where( 'type', 1 );
 		$this->db->where( 'account_status', 1 );
 		$query = $this->db->get( 'accounts' );
 		$data = $query->result();
@@ -404,7 +404,7 @@ class index extends MY_Controller
 		$this->db->where( ' ( p.end_date > '. strtotime( 'now' ) . 
 		                  ' OR p.end_date = 0 ) ', false , false );
 
-
+		$this->db->where( 'a.account_status', 1 );
 		$query = $this->db->get();
 		$output['data_list'] = $query->result();
 
@@ -466,8 +466,14 @@ class index extends MY_Controller
 
 		$this->db->where( 'account_id', $id );
 		$this->db->where( 'type', 1 );
+		$this->db->where( 'account_status', 1 );
 		$query = $this->db->get( 'accounts' );
 		$output['show_data'] = $query->row();
+
+		if ( empty( $output['show_data'] ) ) 
+		{
+			redirect( site_url() );
+		}
 
 
 		$this->db->from( 'job_ref_account AS jra' );
@@ -508,6 +514,7 @@ class index extends MY_Controller
 		if ( ! empty( $account_data ) ) 
 		{
 			$this->db->where( 'account_id', $account_data['id'] );
+			$this->db->where( 'account_status', 1 );
 			$query = $this->db->get( 'accounts' );
 			$account_data = $query->row();
 
@@ -552,6 +559,7 @@ class index extends MY_Controller
 		{
 			$this->db->select( 'name' );
 			$this->db->where( 'account_id', $value->account_id );
+			$this->db->where( 'account_status', 1 );
 			$query = $this->db->get( 'accounts' );
 			$data = $query->row();
 
@@ -562,6 +570,7 @@ class index extends MY_Controller
 
 		$this->db->from( 'project AS p' );
 		$this->db->join( 'accounts AS a', 'p.account_id = a.account_id', 'left' );
+		$this->db->where( 'a.account_status', 1 );
 		$this->db->where( 'p.id', $id );
 		$query = $this->db->get();
 		$output['show_data'] = $query->row();
@@ -853,6 +862,7 @@ class index extends MY_Controller
 				$this->db->from( 'job_ref_account AS jra' );
 				$this->db->where_in( 'jra.id_job', $array_job );
 				$this->db->join( 'accounts AS a', 'a.account_id = jra.id_account', 'left' );
+				$this->db->where( 'a.account_status', 1 );
 				$this->db->where_in('a.type', 1);
 				$this->db->group_by( 'a.account_id' );
 				$query = $this->db->get();

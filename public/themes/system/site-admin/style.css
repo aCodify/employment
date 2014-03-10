@@ -683,3 +683,17 @@ html, body {height: 100%;}
 	display: none;
 }
 
+
+.admin_menu
+{
+	font-size: 17px;
+    padding: 4px 3px 3px;
+    position: absolute;
+}
+
+.admin_link_menu
+{
+	display: inline-block;
+    font-size: 15px;
+    padding: 4px 4px 4px 1em;
+}

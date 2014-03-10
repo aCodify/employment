@@ -44,5 +44,58 @@ class index extends admin_controller
 	}// index
 	
 
+	public function principal( $id = '' )
+	{	
+	
+		// SET VALUE 
+		$output = '';
+
+		$this->db->where( 'type', 2 );
+		$query = $this->db->get( 'accounts' );
+		$data = $query->result();
+		$output['data_list'] = $data;
+
+		$output['page_title'] = $this->html_model->gen_title($this->lang->line('admin_home'));
+
+		$this->generate_page('site-admin/templates/index/principal_view', $output);
+	
+	} // END FUNCTION principal
+	
+	public function freelance( $id = '' )
+	{
+	
+		// SET VALUE 
+		$output = '';
+
+		$this->db->where( 'type', 1 );
+		$query = $this->db->get( 'accounts' );
+		$data = $query->result();
+		$output['data_list'] = $data;
+
+		$output['page_title'] = $this->html_model->gen_title($this->lang->line('admin_home'));
+
+		$this->generate_page('site-admin/templates/index/freelance_table_view', $output);
+	
+	} // end function freelance
+
+
+	public function list_project( $id = '' )
+	{
+	
+		// SET VALUE 
+		$output = '';
+
+		$this->db->where( 'account_id', $id );
+		$query = $this->db->get( 'project' );
+		$data = $query->result();
+
+		$output['data_list'] = $data;
+
+		$output['page_title'] = $this->html_model->gen_title($this->lang->line('admin_home'));
+
+		$this->generate_page('site-admin/templates/index/list_project_view', $output);
+	
+	} // END FUNCTION list_project
+
 }
 

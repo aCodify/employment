@@ -2,7 +2,20 @@
 <blockquote class="profile-freelance">
 
 	<span>
-		<div class="account-avatar-wrap border-shop-img2"><img style="max-width: 10em;" src="<?php echo base_url( 'public/upload/img_cover/'.$show_data->account_avatar ) ?>" alt="<?php echo lang( 'account_avatar' ); ?>" class="account-avatar account-avatar-edit cover-img-tmp" /></div>
+
+		<?php 
+		if ( ! empty( $show_data->account_avatar ) ) 
+		{
+			$image = base_url( 'public/upload/img_cover/'.$show_data->account_avatar );
+		} 
+		else 
+		{
+			$image = base_url( 'public/images/default-avatar.png' );
+		}
+		
+		?>
+
+		<div class="account-avatar-wrap border-shop-img2"><img style="max-width: 10em;" src="<?php echo $image ?>" alt="logo image" class="account-avatar account-avatar-edit cover-img-tmp" /></div>
 	</span>	
 	<br>
 

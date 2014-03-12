@@ -856,6 +856,8 @@ class index extends MY_Controller
 			else
 			{
 
+				$data_post['end_date'] = strtotime(reset_format_date( $data_post['end_date'] ));
+
 				$array_job = $data_post['name_job'];
 
 				$this->db->select( 'a.account_id , a.account_email , jra.id_job' );

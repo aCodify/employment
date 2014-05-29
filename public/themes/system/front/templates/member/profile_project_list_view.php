@@ -15,6 +15,9 @@
 		</thead>
 		<tbody>
 				<?php foreach ( $data_list as $key => $value ): ?>
+
+
+
 					<tr>
 						<td><a href="<?php echo site_url( 'index/edit_project/'.$value->id ) ?>"><?php echo $value->project_name ?></a></td>
 						<td><a href="<?php echo site_url( 'index/edit_project/'.$value->id ) ?>"><?php echo date("d-M-Y" , $value->create_date); ?></a></td>

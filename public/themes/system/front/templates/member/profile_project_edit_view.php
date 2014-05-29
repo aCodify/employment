@@ -55,7 +55,7 @@
 				<div class="name_input">
 					ราคา
 				</div> 
-				<input class="span5" type="text" name="price" value="<?php echo $show_data->price ?>" >
+				<input class="span5" type="text" name="price" value="<?php echo $show_data->price ?>" > <b>บาท</b>
 			</div>
 
 			<div class="box_input">

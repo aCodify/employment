@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en" class="">
     <head>
-        <title>Employment Project</title>
+        <title>Freelance World</title>
         <meta charset="utf-8" />
         <meta name="keywords" content="Employment" />
         <meta name="description" content="Employment" />
@@ -79,12 +79,12 @@
             
             <header class="main">
                 <a href="/" class="logo">
-                    <span data-placement="bottom" title='' class="avatar" style="background-image: url('http://www.gravatar.com/avatar/e8136c5cd59ab1348af1e8af3755c9e1.png');"></span>
+                    <span data-placement="bottom" title='' class="avatar" style="background-image: url('<?php echo base_url("public/images/bird01.jpg"); ?>');"></span>
                 </a>
                 <div class="bio">
-                    <a class="name" href="/" >
+                    <a class="name" href="<?php echo site_url() ?>" >
                     
-                    { Employment เว็บไซต์จัดหางาน }
+                     เว็บไซต์จัดหางานอิสระ
                     
                     </a>
                 </div>
@@ -108,7 +108,7 @@
                         </div>
                         
                         <div class="content-inner">
-                            <h1><a title='Hello World' data-placement="right"  href="#">WELCOME TO WORLD JOB</a></h1>
+                            <h1><a title='Hello World' data-placement="right"  href="#">WELCOME TO FREELANCE WORLD</a></h1>
                             <div class="post-content autumn">
                  
                                 <div class="markdown">
@@ -123,9 +123,9 @@
                                     <div class="end_footer"></div>
                                     <br>
                                     <p class="rights_reserved">
-                                        <a href="">HOME </a> |
-                                        <a href=""> FREELANCE List </a> |
-                                        <a href=""> PROJECT List </a> 
+                                        <a href="<?php echo site_url() ?>">HOME </a> |
+                                        <a href="<?php echo site_url( 'index/freelance' ) ?>"> FREELANCE LIST </a> |
+                                        <a href="<?php echo site_url( 'index/principal' ) ?>">PROJECT LIST </a> 
                                         | © 2012-2013, All Rights Reserved.
                                     </p>
 

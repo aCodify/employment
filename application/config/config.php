@@ -232,7 +232,7 @@ $config['cache_path'] = '';
 | MUST set an encryption key.  See the user guide for info.
 |
 */
-$config['encryption_key'] = 'KuQteG5HK';
+$config['encryption_key'] = 'CAST9YK8B';
 
 /*
 |--------------------------------------------------------------------------
@@ -273,7 +273,7 @@ $config['sess_time_to_update']	= 300;
 | 'cookie_secure' =  Cookies will only be set if a secure HTTPS connection exists.
 |
 */
-$config['cookie_prefix'] = 'OXL_';
+$config['cookie_prefix'] = 'evw_';
 $config['cookie_domain'] = '';
 $config['cookie_path'] = '/';
 $config['cookie_secure'] = FALSE;
@@ -302,8 +302,8 @@ $config['global_xss_filtering'] = FALSE;
 | 'csrf_expire' = The number in seconds the token should expire.
 */
 $config['csrf_protection'] = TRUE;
-$config['csrf_token_name'] = 'uQjRG_token';
-$config['csrf_cookie_name'] = 'yjuXw_cookie';
+$config['csrf_token_name'] = 'Bqxbu_token';
+$config['csrf_cookie_name'] = 'OnuFY_cookie';
 $config['csrf_expire'] = 7200;
 
 /*

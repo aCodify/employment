@@ -151,7 +151,7 @@ class register extends MY_Controller
 						**/
 						require_once( APPPATH.'libraries/phpmailer/class.phpmailer.php' );
 
-						$mail 				 = new PHPMailer();
+					$mail 				 = new PHPMailer();
 						$mail->CharSet 		 = 'UTF-8';
 						$body = '';
 				    	$body .= '<h4>คุณได้ทำการสมัครกับเว็บไซต์ '.site_url().'</h4><br>';
@@ -167,9 +167,9 @@ class register extends MY_Controller
 						$mail->Password = 'RFVujm123@';
 						
 						$email_from = 'contact@domain.com'; 
-						$from_name = 'System-Contact';
+						$from_name = 'Freelance World';
 						$mail->SetFrom( $email_from , $from_name );
-						$mail->Subject  = 'System Reset Password';
+						$mail->Subject  = 'ยืนยัน Email';
 						$mail->MsgHTML( $body );
 						$mail->AddAddress( $data['account_email'] );
 						
@@ -177,7 +177,6 @@ class register extends MY_Controller
 						{
 						  	// $this->data['error_sent_mail'] = $this->language->get( 'error_sent_mail' );
 						} 
-
 						/** END SET SENT EMAIL	 **/
 
 

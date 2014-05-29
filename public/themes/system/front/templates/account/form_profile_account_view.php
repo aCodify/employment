@@ -1,6 +1,6 @@
 <article class="general-page-container">
 	
-	<h1>จัดการข้อมูลสมาชิก</h1>
+	<h1>แก้ไขข้อมูลส่วนตัว</h1>
 
 	<?php echo form_open( current_url() , array('class' => 'form-horizontal')); ?> 
 		<div class="form-status-placeholder">

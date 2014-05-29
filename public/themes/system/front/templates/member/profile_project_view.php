@@ -88,7 +88,7 @@ if ( ! empty( $account_data ) )
 		<div class="name_input">
 			ราคาในการจ้างงาน
 		</div> 
-		: <?php echo number_format( $show_data->price ) ?> บาท
+		: <?php echo  $show_data->price ?> บาท
 	</div>
 
 	<div class="box_input">
@@ -100,7 +100,7 @@ if ( ! empty( $account_data ) )
 
 	<div class="box_input">
 		<div class="name_input">
-			Google Map 	
+			ที่ตั้ง 	
 		</div>
 		: <?php echo $show_data->google_code ?>
 	</div>
@@ -129,6 +129,7 @@ if ( ! empty( $account_data ) )
 		<div class="name_input">
 			ลงทะเบียนเข้าร่วมการทำงาน
 		</div> 
+
 		<textarea placeholder="รายละเอียด" name="detail" rows="4"></textarea>
 		<br>
 		<div class="name_input">
@@ -148,7 +149,7 @@ if ( ! empty( $account_data ) )
 		
 	<?php else: ?>
 		
-		<span> Job ของคุณไม่อนุญาติให้เข้ารวม project นี้ </span>
+		<span> ลักษณะงานของคุณไม่อนุญาติให้เข้ารวม project นี้ </span>
 
 	<?php endif ?>
 
@@ -161,7 +162,7 @@ if ( ! empty( $account_data ) )
 		<div class="name_input"  style="width: 3em;" >
 			คุณ
 		</div> 
-		: <?php echo $value->name_account ?> ได้ลงชื่อขอทำงาน
+		: <a href="<?php echo site_url( 'index/profile_freelance/'.$value->account_id ) ?>"><?php echo $value->name_account ?></a> ได้ลงชื่อขอทำงาน
 
 		<?php if ( $this_project ): ?>
 			<br>

@@ -45,23 +45,23 @@
 				<div class="name_input">
 					ระยะเวลาในการทำงาน
 				</div> 
-				<input class="span5 datepicker" type="text" name="long_term">
+				<input class="span5 datepicker" type="text" name="long_term">  <b>วัน</b>
 			</div>
 
 			<div class="box_input">
 				<div class="name_input">
-					ระยะเวลาการแสดง
+					วันสิ้นสุดการเสนอราคา
 				</div> 
-				<input type="text" name="end_date" id="datepicker">
+				<input placeholder='01/01/2014' type="text" name="end_date" id="datepicker">
 
 			</div>
 
 			<div class="box_input">
 				<div class="name_input">
-					ราคา
+					งบประมาณ
 				</div> 
-				<input class="span5" type="text" name="price">
-			</div>
+				<input class="span5" type="text" name="price"> <b>บาท</b>
+			</div> 
 
 			<div class="box_input">
 				<div class="name_input">

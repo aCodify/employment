@@ -1,23 +1,28 @@
-<h3>Update Project</h3>
+<h3>Project List</h3>
 <blockquote id="freelance">
 	<table class="table table-striped table-hover table-bordered dataTable-project-home" >
 		<thead>
 			<tr>
-				<th>Project</th>
-				<th>ผู้ว่าจ้าง</th>
+				<th>ชื่อโปรเจค</th>
+				
 				<th>ประเภทงาน</th>
-				<th>งบประมาณ</th>
+				<th>งบประมาณ(บาท)</th>
 				<th>จังหวัด</th>
-				<th>ระยะเวลา</th>
+				<th>ระยะเวลา(วัน)</th>
 			</tr>
 		</thead>
 		<tbody>
 
 				<?php foreach ( $data_list as $key => $value ): ?>
+
+
+				
+
+
+				
 					
 				<tr>
 					<td><a href="<?php echo site_url( 'index/profile_project/'.$value->id ) ?>"><?php echo $value->project_name ?></a></td>
-					<td><a href="<?php echo site_url( 'index/profile_project/'.$value->id ) ?>"><?php echo $value->name .' '.$value->last_name ?></a></td>
 					<td><a href="<?php echo site_url( 'index/profile_project/'.$value->id ) ?>"><?php echo $value->name_job ?></a></td>
 					<td><a href="<?php echo site_url( 'index/profile_project/'.$value->id ) ?>"><?php echo $value->price ?></a></td>
 					<td><a href="<?php echo site_url( 'index/profile_project/'.$value->id ) ?>"><?php echo $value->name_province ?></a></td>
@@ -43,12 +48,12 @@ jQuery(document).ready(function($) {
 var oTable_project = $('.dataTable-project-home').dataTable(
 	{
 		"aoColumns": [
-					        { "sWidth": "25%" },
-					        { "sWidth": "20%" },
+					        { "sWidth": "35%" },
+					        
 					        { "sWidth": "10%" },
-					        { "sWidth": "25%" },
+					        { "sWidth": "15%" },
 					        { "sWidth": "10%" },
-					        { "sWidth": "15%" }
+					        { "sWidth": "5%" }
 						],
 		"aaSorting": [[ 0, "asc" ]],
 		"sPaginationType" : "full_numbers",

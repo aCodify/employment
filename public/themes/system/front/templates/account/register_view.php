@@ -79,7 +79,7 @@
 				<div class="name_input">
 					เลขประจำตัวประชาชน
 				</div> 
-				<input name="id_card" type="text" class="span3" value="<?php echo $retVal = ( ! empty( $show_data['id_card'] ) ) ? $show_data['id_card'] : '' ; ?>">
+				<input placeholder="กรุณากรอกข้อมูลที่ถูกต้อง" name="id_card" type="text" class="span3" value="<?php echo $retVal = ( ! empty( $show_data['id_card'] ) ) ? $show_data['id_card'] : '' ; ?>">
 			</div>
 
 			<div class="box_input">
@@ -93,9 +93,9 @@
 			<?php if ( $this->input->get( 'type' ) == 2 ): ?>
 			<div class="box_input">
 				<div class="name_input">
-					Google Map
+					แผนที่
 				</div> 	
-				<textarea name="google_code" rows="3" name="" class="span6" style="margin-bottom: 0;"><?php echo $retVal = ( ! empty( $show_data['google_code'] ) ) ? $show_data['google_code'] : '' ; ?></textarea>
+				<textarea placeholder="กรุณาใส่โค้ดจาก Google Map" name="google_code" rows="3" name="" class="span6" style="margin-bottom: 0;"><?php echo $retVal = ( ! empty( $show_data['google_code'] ) ) ? $show_data['google_code'] : '' ; ?></textarea>
 			</div>	
 			<?php endif ?>
 
@@ -155,7 +155,7 @@
 
 			<div class="box_input">
 				<div class="name_input">
-					ความสามารถอื่นๆ
+					รายละเอียดความสามารถ
 				</div> 	
 				<textarea rows="5" name="other_skill" class="span6" style="margin-bottom: 0;"><?php echo $retVal = ( ! empty( $show_data['other_skill'] ) ) ? $show_data['other_skill'] : '' ; ?></textarea>
 			</div>

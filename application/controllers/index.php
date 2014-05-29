@@ -18,48 +18,22 @@ class index extends MY_Controller
 	{
 		parent::__construct();
 		
-		// load model
+		
 		$this->load->model(array('posts_model'));
 		
-		// set post_type
+		
 		$this->posts_model->post_type = 'article';
 		
-		// load helper
+		
 		$this->load->helper(array('date', 'language' , 'function'));
 
 		
-		// load language
+		
 		$this->lang->load('post');
 	
-	}// __construct
+	}
 	
 	
-	// public function _remap($att1 = '', $att2 = '') 
-	// {
-	// 	// if there is uri like this http://domain/installed_dir/index, http://domain/installed_dir/index/index
-	// 	// redirect to base url to prevent duplicate content. good for seo.
-	// 	if ($this->uri->segment(1) != null) {
-	// 		redirect(base_url());
-	// 	}
-		
-	// 	$this->index();
-	// }// _remap
-
-	/**
-	 * encrypt password
-	 * @param string $password
-	 * @return string
-	 */
-	public function encryptPassword($password = '') 
-	{
-		if (property_exists($this, 'modules_plug') && $this->modules_plug->has_filter('account_generate_hash_password')) {
-			return $this->modules_plug->do_filter('account_generate_hash_password', $password);
-		} else {
-			include_once dirname(dirname(__FILE__)).'/libraries/PasswordHash.php';
-			$PasswordHash = new PasswordHash(12, false);
-			return $PasswordHash->HashPassword($password);
-		}
-	}// encryptPassword
 	
 	
 	
@@ -208,7 +182,7 @@ class index extends MY_Controller
 		*
 		**/
 
-			if ( $this->input->post() ) 
+		if ( $this->input->post() ) 
 			{
 				echo '<pre>';
 				print_r( $_POST );
@@ -219,35 +193,17 @@ class index extends MY_Controller
 
 		/** END IF SYSTEM HAS METHORD $_POST **/
 
-		// -------------------------------------
-
-		/**
-		*
-		*** START GET PROVINCE
-		*
-		**/
-		
 		$query = $this->db->get( 'province' );
 		$output['province'] = $query->result();
 		
 		
-		/** END GET PROVINCE **/
-
-		// -------------------------------------
-
-		/**
-		*
-		*** START GET JOB
-		*
-		**/
+	
 		
 		$query = $this->db->get( 'job' );
 		$output['job'] = $query->result();
 		
 		
-		/** END GET JOB **/	
-
-		// -------------------------------------	
+		
 
 
 		if ( $info_page == 'freelance' ) 
@@ -281,9 +237,9 @@ class index extends MY_Controller
 
 	public function select_photo_upload_cover($info = 'img_cover')
 	{
-			//upload images
+			
 			require_once( APPPATH.'libraries/phpthumb/ThumbLib.inc.php' );			
-			//--- change name -------------------
+			
 			$file_name = explode('.',$_FILES['uploadfile']['name']);
 			$md = md5($_FILES['uploadfile']['name']);  
 			$filename = $md.'.'.$file_name[1];  
@@ -313,7 +269,7 @@ class index extends MY_Controller
 
 	public function forget_password()
 	{
-		// SET VALUE 
+		
 		$output = '';
 
 
@@ -398,7 +354,7 @@ class index extends MY_Controller
 		// GET DATA PROJECT
 		$this->db->from( 'project AS p' );
 		$this->db->join( 'accounts AS a', 'p.account_id = a.account_id', 'left' );
-		$this->db->order_by( 'p.id', 'desc' );
+		$this->db->order_by( 'p.id', 'esc' );
 
 
 		$this->db->where( ' ( p.end_date > '. strtotime( 'now' ) . 
@@ -469,6 +425,7 @@ class index extends MY_Controller
 		$this->db->where( 'account_status', 1 );
 		$query = $this->db->get( 'accounts' );
 		$output['show_data'] = $query->row();
+
 
 		if ( empty( $output['show_data'] ) ) 
 		{
@@ -786,6 +743,7 @@ class index extends MY_Controller
 	} // END FUNCTION edit_account
 
 
+
 	public function project()
 	{
 		// SET VALUE 
@@ -857,6 +815,7 @@ class index extends MY_Controller
 			{
 
 				$data_post['end_date'] = strtotime(reset_format_date( $data_post['end_date'] ));
+ 
 
 				$array_job = $data_post['name_job'];
 
@@ -903,7 +862,7 @@ class index extends MY_Controller
 					$mail 				 = new PHPMailer();
 					$mail->CharSet 		 = 'UTF-8';
 					$body = '';
-			    	$body .= '<h4>ได้มีการลงข้อมูล Project ใหม่</h4><br>';
+			    	$body .= '<h4>ได้มีการลงข้อมูล Project ใหม่ ที่ตรงกับความสามารถของท่าน</h4><br>';
 			    	$body .= '<b>คุณสามารถเข้าไปดูได้ที่</b> <br> <br>';
 			    	$body .= site_url( 'index/profile_project/'.$id_project );
 			 
@@ -916,10 +875,11 @@ class index extends MY_Controller
 					$mail->Password = 'RFVujm123@';
 					
 					$email_from = 'contact@domain.com'; 
-					$from_name = 'System-Contact';
+					$from_name = 'Freelance World';
 					$mail->SetFrom( $email_from , $from_name );
-					$mail->Subject  = 'System Reset Password';
+					$mail->Subject  = 'แจ้งเตือนการลง Project';
 					$mail->MsgHTML( $body );
+
 
 					foreach ( $data_email_group as $key => $value ) 
 					{
@@ -1073,7 +1033,7 @@ class index extends MY_Controller
 			$this->db->where( 'account_email', $email );
 			$this->db->set( 'account_status', '1' );
 			$this->db->update( 'accounts' );
-			$output['status'] = 'คุณสามารถ login ด้วย Email: '. $email . ' ได้แล้ว';
+			$output['status'] = 'คุณสามารถ login ได้แล้ว: '. $email . ' ได้แล้ว';
 		}
 		else
 		{
@@ -1090,7 +1050,26 @@ class index extends MY_Controller
 
 
 
+public function encryptPassword($password = '') 
+	{
+		if (property_exists($this, 'modules_plug') && $this->modules_plug->has_filter('account_generate_hash_password')) {
+			return $this->modules_plug->do_filter('account_generate_hash_password', $password);
+		} else {
+			include_once dirname(dirname(__FILE__)).'/libraries/PasswordHash.php';
+			$PasswordHash = new PasswordHash(12, false);
+			return $PasswordHash->HashPassword($password);
+		}
+	}// encryptPassword
+	
 
+public function test(){
+
+
+
+echo'ggggg';
+
+
+}
 
 
 

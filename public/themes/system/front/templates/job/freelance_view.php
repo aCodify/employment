@@ -1,11 +1,11 @@
-<h3>Freelance list</h3>
+<h3>Freelance List</h3>
 <blockquote id="freelance">
 	<table class="table table-striped table-hover table-bordered dataTable" >
 		<thead>
 			<tr>
-				<th>Name</th>
-				<th>Job</th>
-				<th>Phone</th>
+				<th>ชื่อ-นามสกุล</th>
+				<th>ความสามารถ</th>
+				<th>เบอร์โทรศัพท์</th>
 			</tr>
 		</thead>
 		<tbody>

@@ -22,7 +22,7 @@
 
 	<div class="box_input">
 		<div class="name_input">
-			Company Name
+			xxxx
 		</div> 
 		<input type="text" class="span3">
 	</div>

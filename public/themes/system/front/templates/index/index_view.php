@@ -4,11 +4,11 @@
 		<thead>
 			<tr>
 				<th>Project</th>
-				<th>ผู้ว่าจ้าง</th>
+				
 				<th>ประเภทงาน</th>
-				<th>งบประมาณ</th>
+				<th>งบประมาณ(บาท)</th>
 				<th>จังหวัด</th>
-				<th>ระยะเวลา</th>
+				<th>ระยะเวลา(วัน)</th>
 			</tr>
 		</thead>
 		<tbody>
@@ -18,7 +18,7 @@
 					
 				<tr>
 					<td><a href="<?php echo site_url( 'index/profile_project/'.$value->id ) ?>"><?php echo $value->project_name ?></a></td>
-					<td><a href="<?php echo site_url( 'index/profile_project/'.$value->id ) ?>"><?php echo $value->name .' '.$value->last_name ?></a></td>
+					
 					<td><a href="<?php echo site_url( 'index/profile_project/'.$value->id ) ?>"><?php echo $value->name_job ?></a></td>
 					<td><a href="<?php echo site_url( 'index/profile_project/'.$value->id ) ?>"><?php echo $value->price ?></a></td>
 					<td><a href="<?php echo site_url( 'index/profile_project/'.$value->id ) ?>"><?php echo $value->name_province ?></a></td>
@@ -41,9 +41,9 @@
 	<table class="table table-striped table-hover table-bordered dataTable" >
 		<thead>
 			<tr>
-				<th>Name</th>
-				<th>Job</th>
-				<th>Phone</th>
+				<th>ชื่อ-นามสกุล</th>
+				<th>ความสามารถ</th>
+				<th>เบอร์โทรศัพท์</th>
 			</tr>
 		</thead>
 		<tbody>
@@ -107,11 +107,11 @@ jQuery(document).ready(function($) {
 		{
 			"aoColumns": [
 						        { "sWidth": "30%" },
-						        { "sWidth": "30%" },
+						        
 						        { "sWidth": "15%" },
 						        { "sWidth": "15%" },
 						        { "sWidth": "15%" },
-						        { "sWidth": "25%" }
+						        { "sWidth": "5%" }
 							],
 			"aaSorting": [[ 0, "asc" ]],
 			"sPaginationType" : "full_numbers",

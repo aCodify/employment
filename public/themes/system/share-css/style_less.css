@@ -54,6 +54,7 @@
 #freelance .dataTables_filter input {
   height: 2em;
   margin: 0;
+  width: 8em;
 }
 #freelance .dataTables_info {
   display: none;

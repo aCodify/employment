@@ -336,8 +336,19 @@ class index extends MY_Controller
 		// SET VALUE 
 		$output = '';
 
+
+		$get_job = ( ! empty( $_GET['job'] ) ) ? $_GET['job'] : '' ;
+		$get_province = ( ! empty( $_GET['province'] ) ) ? $_GET['province'] : '' ;
+
+
 		$this->db->where( 'type', 1 );
 		$this->db->where( 'account_status', 1 );
+
+		if ( ! empty( $get_province ) ) 
+		{
+			$this->db->where( 'province', $get_province );
+		}
+
 		$query = $this->db->get( 'accounts' );
 		$data = $query->result();
 		$output['data_list'] = $data;
@@ -351,9 +362,70 @@ class index extends MY_Controller
 		// SET VALUE 
 		$output = '';
 
+		$get_job = ( ! empty( $_GET['job'] ) ) ? $_GET['job'] : '' ;
+		$get_province = ( ! empty( $_GET['province'] ) ) ? $_GET['province'] : '' ;	
+		$get_price = ( ! empty( $_GET['price'] ) ) ? $_GET['price'] : '' ;	
+		
+
+
 		// GET DATA PROJECT
 		$this->db->from( 'project AS p' );
+
+		if ( ! empty( $get_price ) ) 
+		{
+
+			switch ( $get_price ) 
+			{
+				case '1':
+					$start = 0;
+					$end = 2000;
+					break;
+				case '2':
+					$start = 2001;
+					$end = 4000;
+					break;
+				case '3':
+					$start = 4001;
+					$end = 8000;
+					break;
+				case '4':
+					$start = 8001;
+					$end = 12000;
+					break;
+				case '5':
+					$start = 12001;
+					$end = 20000;
+					break;
+				case '6':
+					$start = 20001;
+					$end = 30000;
+					break;	
+				case '7':
+					$start = 30000;
+					$end = 0;
+					break;										
+				
+				default:
+					$start = 0;
+					$end = 0;
+					break;
+			}
+			if ( ! empty( $start ) ) 
+			{
+				$this->db->where('price >=', $start);
+			}
+			if ( ! empty( $end ) ) 
+			{
+				$this->db->where('price <=', $end);
+			}
+		}
+
+
 		$this->db->join( 'accounts AS a', 'p.account_id = a.account_id', 'left' );
+		if ( ! empty( $get_province ) ) 
+		{
+			$this->db->where_in('a.province', $get_province);
+		}
 		$this->db->order_by( 'p.id', 'esc' );
 
 
@@ -368,6 +440,10 @@ class index extends MY_Controller
 		foreach ( $output['data_list'] as $key => $value ) 
 		{
 			$this->db->where( 'project_id', $value->id );
+			if ( ! empty( $get_job ) ) 
+			{
+				$this->db->where( 'id_job', $get_job );
+			}
 			$query = $this->db->get( 'project_ref_job' );
 			$data = $query->result();
 

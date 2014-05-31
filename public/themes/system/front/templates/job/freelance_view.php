@@ -18,7 +18,7 @@ $get_job = ( ! empty( $_GET['job'] ) ) ? $_GET['job'] : '' ;
 $get_province = ( ! empty( $_GET['province'] ) ) ? $_GET['province'] : '' ;	
 
 ?>
-<div style="float: right; margin-top: 19px; padding-left: 8px;">
+<div style="float: right; padding-left: 8px;">
 	<select name="province" >
 			<option value="">ทุกจังหวัด</option>
 			<?php foreach ( $data_province as $key => $value ): ?>
@@ -29,7 +29,7 @@ $get_province = ( ! empty( $_GET['province'] ) ) ? $_GET['province'] : '' ;
 </div>
 
 
-<div style="float: right; margin-top: 19px;">
+<div style="float: right;">
 	<!-- <span>ความสามารถ</span>	 -->
 	<select name="job" style="width: 10em;" >
 		<option value="">ทุกความสามารถ</option>
